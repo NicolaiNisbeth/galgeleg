@@ -11,6 +11,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/qBtn"/>
 
         <Button
@@ -18,6 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/wBtn" />
 
         <Button
@@ -25,6 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/eBtn" />
 
         <Button
@@ -32,6 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/rBtn" />
 
         <Button
@@ -39,6 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/tBtn"/>
 
         <Button
@@ -46,6 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/yBtn"/>
 
         <Button
@@ -53,6 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/uBtn"/>
 
         <Button
@@ -60,6 +67,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/iBtn"/>
 
         <Button
@@ -67,6 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/oBtn"/>
 
         <Button
@@ -74,6 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/pBtn"/>
 
         <Button
@@ -81,6 +91,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/åBtn"/>
 
     </LinearLayout>
@@ -95,6 +106,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/aBtn"/>
 
         <Button
@@ -102,6 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/sBtn"/>
 
         <Button
@@ -109,6 +122,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/dBtn"/>
 
         <Button
@@ -116,6 +130,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/fBtn"/>
 
         <Button
@@ -123,12 +138,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/gBtn"/>
         <Button
             android:id="@+id/hBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/hBtn"/>
 
         <Button
@@ -136,6 +153,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/jBtn"/>
 
         <Button
@@ -143,6 +161,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/kBtn"/>
 
         <Button
@@ -150,6 +169,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/lBtn"/>
 
         <Button
@@ -157,6 +177,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/æBtn"/>
 
         <Button
@@ -164,6 +185,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/øBtn"/>
     </LinearLayout>
 
@@ -177,42 +199,49 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/zBtn"/>
         <Button
             android:id="@+id/xBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/xBtn"/>
         <Button
             android:id="@+id/cBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/cBtn"/>
         <Button
             android:id="@+id/vBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/vBtn"/>
         <Button
             android:id="@+id/bBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/bBtn"/>
         <Button
             android:id="@+id/nBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/nBtn"/>
         <Button
             android:id="@+id/mBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/btn_apple"
             android:text="@string/mBtn"/>
 
     </LinearLayout>
