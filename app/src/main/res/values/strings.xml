@@ -4,4 +4,5 @@
     <string name="startBtn">Start</string>
     <string name="highscoreBtn">Highscore</string>
     <string name="helpBtn">Help</string>
+    <string name="credits">Nicolai Nisbeth s175565</string>
 </resources>
