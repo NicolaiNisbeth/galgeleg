@@ -20,9 +20,9 @@ public class Sentence {
     private boolean gameIsLost;
     private int difficulty = 1;
 
-
     public Sentence(){
         this.usedLetters = new ArrayList<>();
+        this.visibleSentence = new StringBuilder();
         restart();
     }
 
@@ -83,9 +83,69 @@ public class Sentence {
         opdateVisibleSentence();
     }
 
-    public static void main(String[] args) {
-        Sentence s = new Sentence();
-        s.restart();
+
+    public Set<String> getWordLibrary() {
+        return wordLibrary;
+    }
+
+    public void setWordLibrary(Set<String> wordLibrary) {
+        this.wordLibrary = wordLibrary;
+    }
+
+    public List<String> getSolution() {
+        return solution;
+    }
+
+    public void setSolution(List<String> solution) {
+        this.solution = solution;
+    }
+
+    public ArrayList<Character> getUsedLetters() {
+        return usedLetters;
+    }
+
+    public void setUsedLetters(ArrayList<Character> usedLetters) {
+        this.usedLetters = usedLetters;
+    }
+
+    public StringBuilder getVisibleSentence() {
+        return visibleSentence;
+    }
+
+    public void setVisibleSentence(StringBuilder visibleSentence) {
+        this.visibleSentence = visibleSentence;
+    }
+
+    public int getWrongGuess() {
+        return wrongGuess;
+    }
+
+    public void setWrongGuess(int wrongGuess) {
+        this.wrongGuess = wrongGuess;
+    }
+
+    public boolean isGameIsWon() {
+        return gameIsWon;
+    }
+
+    public void setGameIsWon(boolean gameIsWon) {
+        this.gameIsWon = gameIsWon;
+    }
+
+    public boolean isGameIsLost() {
+        return gameIsLost;
+    }
+
+    public void setGameIsLost(boolean gameIsLost) {
+        this.gameIsLost = gameIsLost;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
     @Override
