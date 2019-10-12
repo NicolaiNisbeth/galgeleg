@@ -2,12 +2,17 @@ package com.example.galgeleg;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.example.galgeleg.model.Logic;
 
 public class MyKeyboard extends LinearLayout implements View.OnClickListener {
 
@@ -15,8 +20,13 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
                     aBtn, sBtn, dBtn, fBtn, gBtn, hBtn, jBtn, kBtn, lBtn, æBtn, øBtn,
                         zBtn, xBtn, cBtn, vBtn, bBtn, nBtn, mBtn;
 
+
+
     private SparseArray<String> keyValues = new SparseArray<>();
     private InputConnection inputConnection;
+    private Logic logic;
+    private EditText editText;
+    private ImageView imageView;
 
     public MyKeyboard(Context context) {
         this(context, null, 0);
@@ -28,10 +38,12 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
 
     public MyKeyboard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context);
+        this.logic = new Logic();
+        System.out.println(logic);
     }
 
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.keyboard, this, true);
         qBtn = findViewById(R.id.qBtn); qBtn.setOnClickListener(this); keyValues.put(R.id.qBtn, "q");
         wBtn = findViewById(R.id.wBtn); wBtn.setOnClickListener(this); keyValues.put(R.id.wBtn, "w");
@@ -66,13 +78,47 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (inputConnection == null) return;
 
-        String value = keyValues.get(view.getId());
-        inputConnection.commitText(value, 1);
+        char value = keyValues.get(view.getId()).charAt(0);
+
+        editText.setText("");
+        logic.guessedLetter(value);
+        editText.setText(logic.getVisibleSentence());
+        if (!logic.isPreviousGuessWasCorrect()){
+            setHangingMan(logic.getWrongGuess());
+        }
+
+        if (logic.isGameIsWon())
+            System.out.println("du har vundet");
+
+        if (logic.isGameIsLost()) {
+            System.out.println("du har tabt");
+        }
+
+    }
+
+    private void setHangingMan(int wrongGuess) {
+        switch (wrongGuess){
+            case 1: imageView.setImageResource(R.drawable.drawing2); break;
+            case 2: imageView.setImageResource(R.drawable.drawing3); break;
+            case 3: imageView.setImageResource(R.drawable.drawing4); break;
+            case 4: imageView.setImageResource(R.drawable.drawing5); break;
+            case 5: imageView.setImageResource(R.drawable.drawing6); break;
+            case 6: imageView.setImageResource(R.drawable.drawing7); break;
+        }
+
     }
 
     public void setInputConnection(InputConnection ic) {
         inputConnection = ic;
     }
+
+    public void setEditText(EditText editText){
+        this.editText = editText;
+    }
+
+    public void setImageView(ImageView imageView){
+        this.imageView = imageView;
+    }
+
 }

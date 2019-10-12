@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static android.content.ContentValues.TAG;
 
-public class Sentence {
+public class Logic {
     private Set<String> wordLibrary;
     private List<String> solution;
     private ArrayList<Character> usedLetters;
@@ -19,8 +19,9 @@ public class Sentence {
     private boolean gameIsWon;
     private boolean gameIsLost;
     private int difficulty = 1;
+    private boolean previousGuessWasCorrect = false;
 
-    public Sentence(){
+    public Logic(){
         this.usedLetters = new ArrayList<>();
         this.visibleSentence = new StringBuilder();
         restart();
@@ -56,7 +57,7 @@ public class Sentence {
             for (char letter : word){
                 if (usedLetters.contains(letter)) visibleSentence.append(letter);
                 else {
-                    visibleSentence.append("?");
+                    visibleSentence.append("_");
                     gameIsWon = false;
                 }
             }
@@ -74,15 +75,34 @@ public class Sentence {
 
     public void guessedLetter(char letter) {
         Log.d(TAG, "guessedLetter: " + letter);
-        if (gameIsWon || usedLetters.contains(letter)) return;
+        if (gameIsWon || usedLetters.contains(letter) || gameIsLost) return;
 
         usedLetters.add(letter);
 
-        if (!solution.contains(""+letter) && ++wrongGuess > 6) gameIsLost = true;
+        if (solutionHas(letter, solution)) previousGuessWasCorrect = true;
+        else {
+            previousGuessWasCorrect = false;
+            if (++wrongGuess > 5) gameIsLost = true;
+        }
 
         opdateVisibleSentence();
     }
 
+    private boolean solutionHas(char letter, List<String> solution) {
+        for (String s : solution){
+            if (s.contains(""+letter)) return true;
+        }
+        return false;
+    }
+
+
+    public boolean isPreviousGuessWasCorrect() {
+        return previousGuessWasCorrect;
+    }
+
+    public void setPreviousGuessWasCorrect(boolean previousGuessWasCorrect) {
+        this.previousGuessWasCorrect = previousGuessWasCorrect;
+    }
 
     public Set<String> getWordLibrary() {
         return wordLibrary;
@@ -150,8 +170,8 @@ public class Sentence {
 
     @Override
     public String toString() {
-        return "Sentence{" +
-                "wordLibrary=" + wordLibrary +
+        return "Logic{" +
+                //"wordLibrary=" + wordLibrary +
                 ", solution=" + solution +
                 ", usedLetters=" + usedLetters +
                 ", visibleSentence=" + visibleSentence +
