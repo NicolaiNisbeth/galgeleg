@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Galgeleg</string>
+    <string name="menuTitle">Hangman</string>
+    <string name="startBtn">Start</string>
+    <string name="highscoreBtn">Highscore</string>
+    <string name="helpBtn">Help</string>
 </resources>
