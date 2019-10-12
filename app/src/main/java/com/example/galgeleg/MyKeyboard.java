@@ -1,16 +1,16 @@
 package com.example.galgeleg;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.galgeleg.model.Logic;
 
@@ -20,17 +20,11 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
                     aBtn, sBtn, dBtn, fBtn, gBtn, hBtn, jBtn, kBtn, lBtn, æBtn, øBtn,
                         zBtn, xBtn, cBtn, vBtn, bBtn, nBtn, mBtn;
 
-
-
     private SparseArray<String> keyValues = new SparseArray<>();
-    private InputConnection inputConnection;
     private Logic logic;
     private EditText editText;
     private ImageView imageView;
-
-    public MyKeyboard(Context context) {
-        this(context, null, 0);
-    }
+    private Activity activity;
 
     public MyKeyboard(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -79,20 +73,17 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        char value = keyValues.get(view.getId()).charAt(0);
+        char letter = keyValues.get(view.getId()).charAt(0);
+        logic.guessedLetter(letter);
 
-        editText.setText("");
-        logic.guessedLetter(value);
         editText.setText(logic.getVisibleSentence());
-        if (!logic.isPreviousGuessWasCorrect()){
-            setHangingMan(logic.getWrongGuess());
-        }
 
         if (logic.isGameIsWon())
-            System.out.println("du har vundet");
+            Toast.makeText(activity, "You Won", Toast.LENGTH_SHORT).show();
+        else {
+            setHangingMan(logic.getWrongGuess());
+            if (logic.isGameIsLost()) Toast.makeText(activity, "You Lost", Toast.LENGTH_SHORT).show();
 
-        if (logic.isGameIsLost()) {
-            System.out.println("du har tabt");
         }
 
     }
@@ -106,11 +97,6 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
             case 5: imageView.setImageResource(R.drawable.drawing6); break;
             case 6: imageView.setImageResource(R.drawable.drawing7); break;
         }
-
-    }
-
-    public void setInputConnection(InputConnection ic) {
-        inputConnection = ic;
     }
 
     public void setEditText(EditText editText){
@@ -119,6 +105,10 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
 
     public void setImageView(ImageView imageView){
         this.imageView = imageView;
+    }
+
+    public void setActivity(Activity activity){
+        this.activity = activity;
     }
 
 }

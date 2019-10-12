@@ -79,7 +79,7 @@ public class Logic {
 
         usedLetters.add(letter);
 
-        if (solutionHas(letter, solution)) previousGuessWasCorrect = true;
+        if (solutionHas(letter)) previousGuessWasCorrect = true;
         else {
             previousGuessWasCorrect = false;
             if (++wrongGuess > 5) gameIsLost = true;
@@ -88,15 +88,14 @@ public class Logic {
         opdateVisibleSentence();
     }
 
-    private boolean solutionHas(char letter, List<String> solution) {
-        for (String s : solution){
+    private boolean solutionHas(char letter) {
+        for (String s : solution)
             if (s.contains(""+letter)) return true;
-        }
         return false;
     }
 
 
-    public boolean isPreviousGuessWasCorrect() {
+    public boolean isGuessCorrect() {
         return previousGuessWasCorrect;
     }
 

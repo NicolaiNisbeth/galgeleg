@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
     private ImageView imageView;
-    MyKeyboard keyboard;
-    EditText editText;
+    private MyKeyboard keyboard;
+    private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,9 @@ public class GameActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         editText = findViewById(R.id.editText);
         keyboard = findViewById(R.id.keyboard);
+
         keyboard.setEditText(editText);
         keyboard.setImageView(imageView);
+        keyboard.setActivity(this);
     }
 }
