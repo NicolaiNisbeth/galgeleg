@@ -5,4 +5,34 @@
     <string name="highscoreBtn">Highscore</string>
     <string name="helpBtn">Help</string>
     <string name="credits">Nicolai Nisbeth s175565</string>
+    <string name="qBtn">q</string>
+    <string name="wBtn">w</string>
+    <string name="eBtn">e</string>
+    <string name="rBtn">r</string>
+    <string name="tBtn">t</string>
+    <string name="yBtn">y</string>
+    <string name="uBtn">u</string>
+    <string name="iBtn">i</string>
+    <string name="oBtn">o</string>
+    <string name="pBtn">p</string>
+    <string name="åBtn">å</string>
+    <string name="aBtn">a</string>
+    <string name="sBtn">s</string>
+    <string name="dBtn">d</string>
+    <string name="fBtn">f</string>
+    <string name="gBtn">g</string>
+    <string name="hBtn">h</string>
+    <string name="jBtn">j</string>
+    <string name="kBtn">k</string>
+    <string name="lBtn">l</string>
+    <string name="æBtn">æ</string>
+    <string name="øBtn">ø</string>
+    <string name="zBtn">z</string>
+    <string name="xBtn">x</string>
+    <string name="cBtn">c</string>
+    <string name="vBtn">v</string>
+    <string name="bBtn">b</string>
+    <string name="nBtn">n</string>
+    <string name="mBtn">m</string>
+
 </resources>
