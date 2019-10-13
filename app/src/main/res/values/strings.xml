@@ -34,5 +34,6 @@
     <string name="bBtn">b</string>
     <string name="nBtn">n</string>
     <string name="mBtn">m</string>
+    <string name="lives">Lives</string>
 
 </resources>

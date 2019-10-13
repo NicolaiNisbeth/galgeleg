@@ -13,7 +13,10 @@
         android:layout_above="@+id/keyboard"
         android:layout_marginBottom="14dp"
         android:background="#FFFFFF"
-        android:padding="5dp" />
+        android:gravity="center"
+        android:padding="5dp"
+        android:textAllCaps="true"
+        android:textSize="36sp" />
 
     <com.example.galgeleg.MyKeyboard
         android:id="@+id/keyboard"
@@ -26,7 +29,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="317dp"
+        android:layout_height="327dp"
         app:srcCompat="@drawable/drawing1" />
 
     <TextView
@@ -39,13 +42,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="138dp"
-        android:layout_marginLeft="138dp"
-        android:layout_marginTop="255dp"
-        android:layout_marginEnd="185dp"
-        android:layout_marginRight="185dp"
-        android:layout_marginBottom="28dp"
-        android:text="Lives"
+        android:layout_marginStart="111dp"
+        android:layout_marginLeft="111dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="212dp"
+        android:layout_marginRight="212dp"
+        android:layout_marginBottom="278dp"
+        android:text="@string/lives"
         android:textAllCaps="true"
         android:textSize="16sp"
         android:textStyle="bold" />

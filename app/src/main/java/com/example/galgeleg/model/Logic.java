@@ -13,13 +13,10 @@ import static android.content.ContentValues.TAG;
 public class Logic {
     private Set<String> wordLibrary;
     private List<String> solution;
-    private ArrayList<Character> usedLetters;
+    private List<Character> usedLetters;
     private StringBuilder visibleSentence;
-    private int lives = 6;
-    private boolean gameIsWon;
-    private boolean gameIsLost;
-    private int difficulty = 1;
-    private boolean previousGuessWasCorrect = false;
+    private int lives = 6, difficulty = 2;
+    private boolean gameIsWon, gameIsLost, previousGuessWasCorrect;
 
     public Logic(){
         this.usedLetters = new ArrayList<>();
@@ -61,6 +58,7 @@ public class Logic {
                     gameIsWon = false;
                 }
             }
+            visibleSentence.append("  ");
         }
     }
 
@@ -119,11 +117,11 @@ public class Logic {
         this.solution = solution;
     }
 
-    public ArrayList<Character> getUsedLetters() {
+    public List<Character> getUsedLetters() {
         return usedLetters;
     }
 
-    public void setUsedLetters(ArrayList<Character> usedLetters) {
+    public void setUsedLetters(List<Character> usedLetters) {
         this.usedLetters = usedLetters;
     }
 
@@ -179,5 +177,13 @@ public class Logic {
                 ", gameIsLost=" + gameIsLost +
                 ", difficulty=" + difficulty +
                 '}';
+    }
+
+    public String printArray(List<String> list) {
+        StringBuilder out = new StringBuilder();
+        for (String s : list){
+            out.append(s.toUpperCase()).append(" ");
+        }
+        return out.toString();
     }
 }

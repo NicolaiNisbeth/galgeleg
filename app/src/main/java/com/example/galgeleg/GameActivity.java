@@ -1,5 +1,6 @@
 package com.example.galgeleg;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ public class GameActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
         editText = findViewById(R.id.editText);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { editText.setShowSoftInputOnFocus(false); } // disable keyboard
         keyboard = findViewById(R.id.keyboard);
         textView = findViewById(R.id.lives);
 
