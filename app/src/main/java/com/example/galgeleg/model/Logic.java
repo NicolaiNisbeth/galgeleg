@@ -15,7 +15,7 @@ public class Logic {
     private List<String> solution;
     private ArrayList<Character> usedLetters;
     private StringBuilder visibleSentence;
-    private int wrongGuess = 0;
+    private int lives = 6;
     private boolean gameIsWon;
     private boolean gameIsLost;
     private int difficulty = 1;
@@ -42,7 +42,7 @@ public class Logic {
 
     public void restart(){
         usedLetters.clear();
-        wrongGuess = 0;
+        lives = 6;
         gameIsWon = false;
         solution = addSolution(difficulty);
         opdateVisibleSentence();
@@ -82,7 +82,7 @@ public class Logic {
         if (solutionHas(letter)) previousGuessWasCorrect = true;
         else {
             previousGuessWasCorrect = false;
-            if (++wrongGuess > 5) gameIsLost = true;
+            if (--lives <= 0) gameIsLost = true;
         }
 
         opdateVisibleSentence();
@@ -135,12 +135,12 @@ public class Logic {
         this.visibleSentence = visibleSentence;
     }
 
-    public int getWrongGuess() {
-        return wrongGuess;
+    public int getLives() {
+        return lives;
     }
 
-    public void setWrongGuess(int wrongGuess) {
-        this.wrongGuess = wrongGuess;
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     public boolean isGameIsWon() {
@@ -174,7 +174,7 @@ public class Logic {
                 ", solution=" + solution +
                 ", usedLetters=" + usedLetters +
                 ", visibleSentence=" + visibleSentence +
-                ", wrongGuess=" + wrongGuess +
+                ", lives=" + lives +
                 ", gameIsWon=" + gameIsWon +
                 ", gameIsLost=" + gameIsLost +
                 ", difficulty=" + difficulty +

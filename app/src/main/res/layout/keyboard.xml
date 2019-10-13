@@ -23,7 +23,7 @@
             android:text="@string/wBtn" />
 
         <Button
-            android:id="@+id/eQtn"
+            android:id="@+id/eBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -31,7 +31,7 @@
             android:text="@string/eBtn" />
 
         <Button
-            android:id="@+id/rQtn"
+            android:id="@+id/rBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

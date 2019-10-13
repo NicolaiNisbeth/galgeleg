@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.galgeleg.model.Logic;
@@ -25,6 +26,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
     private EditText editText;
     private ImageView imageView;
     private Activity activity;
+    private TextView textView;
 
     public MyKeyboard(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -41,8 +43,8 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         LayoutInflater.from(context).inflate(R.layout.keyboard, this, true);
         qBtn = findViewById(R.id.qBtn); qBtn.setOnClickListener(this); keyValues.put(R.id.qBtn, "q");
         wBtn = findViewById(R.id.wBtn); wBtn.setOnClickListener(this); keyValues.put(R.id.wBtn, "w");
-        eBtn = findViewById(R.id.eQtn); eBtn.setOnClickListener(this); keyValues.put(R.id.eQtn, "e");
-        rBtn = findViewById(R.id.rQtn); rBtn.setOnClickListener(this); keyValues.put(R.id.rQtn, "r");
+        eBtn = findViewById(R.id.eBtn); eBtn.setOnClickListener(this); keyValues.put(R.id.eBtn, "e");
+        rBtn = findViewById(R.id.rBtn); rBtn.setOnClickListener(this); keyValues.put(R.id.rBtn, "r");
         tBtn = findViewById(R.id.tBtn); tBtn.setOnClickListener(this); keyValues.put(R.id.tBtn, "t");
         yBtn = findViewById(R.id.yBtn); yBtn.setOnClickListener(this); keyValues.put(R.id.yBtn, "y");
         uBtn = findViewById(R.id.uBtn); uBtn.setOnClickListener(this); keyValues.put(R.id.uBtn, "u");
@@ -76,26 +78,66 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         char letter = keyValues.get(view.getId()).charAt(0);
         logic.guessedLetter(letter);
 
+        crossOutLetter(view.getId());
+
+
+
         editText.setText(logic.getVisibleSentence());
 
         if (logic.isGameIsWon())
             Toast.makeText(activity, "You Won", Toast.LENGTH_SHORT).show();
         else {
-            setHangingMan(logic.getWrongGuess());
+            setHangingMan(logic.getLives());
+            textView.setText("Lives " + logic.getLives());
             if (logic.isGameIsLost()) Toast.makeText(activity, "You Lost", Toast.LENGTH_SHORT).show();
 
         }
 
     }
 
+    private void crossOutLetter(int id) {
+        switch (id){
+            case R.id.qBtn: qBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.wBtn: wBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.eBtn: eBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.rBtn: rBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.tBtn: tBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.yBtn: yBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.uBtn: uBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.iBtn: iBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.oBtn: oBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.pBtn: pBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.åBtn: åBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.aBtn: aBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.sBtn: sBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.dBtn: dBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.fBtn: fBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.gBtn: gBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.hBtn: hBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.jBtn: jBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.kBtn: kBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.lBtn: lBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.æBtn: æBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.øBtn: øBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.zBtn: zBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.xBtn: xBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.cBtn: cBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.vBtn: vBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.bBtn: bBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.nBtn: nBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+            case R.id.mBtn: mBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter)); break;
+
+        }
+    }
+
     private void setHangingMan(int wrongGuess) {
         switch (wrongGuess){
-            case 1: imageView.setImageResource(R.drawable.drawing2); break;
-            case 2: imageView.setImageResource(R.drawable.drawing3); break;
+            case 5: imageView.setImageResource(R.drawable.drawing2); break;
+            case 4: imageView.setImageResource(R.drawable.drawing3); break;
             case 3: imageView.setImageResource(R.drawable.drawing4); break;
-            case 4: imageView.setImageResource(R.drawable.drawing5); break;
-            case 5: imageView.setImageResource(R.drawable.drawing6); break;
-            case 6: imageView.setImageResource(R.drawable.drawing7); break;
+            case 2: imageView.setImageResource(R.drawable.drawing5); break;
+            case 1: imageView.setImageResource(R.drawable.drawing6); break;
+            case 0: imageView.setImageResource(R.drawable.drawing7); break;
         }
     }
 
@@ -110,5 +152,7 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
     public void setActivity(Activity activity){
         this.activity = activity;
     }
+
+    public void setTextView(TextView textView) {this.textView = textView;}
 
 }
