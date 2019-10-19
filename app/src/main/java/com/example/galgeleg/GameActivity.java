@@ -8,12 +8,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.galgeleg.model.Logic;
+
 
 public class GameActivity extends AppCompatActivity {
-    private ImageView imageView;
-    private MyKeyboard keyboard;
-    private EditText editText;
-    private TextView textView;
+    protected ImageView imageView;
+    protected MyKeyboard keyboard;
+    protected EditText hiddenWord;
+    protected TextView lives;
+    protected Logic logic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +24,15 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.game_activity);
 
         imageView = findViewById(R.id.imageView);
-        editText = findViewById(R.id.editText);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { editText.setShowSoftInputOnFocus(false); } // disable keyboard
+        hiddenWord = findViewById(R.id.hiddenWord);
+        lives = findViewById(R.id.lives);
         keyboard = findViewById(R.id.keyboard);
-        textView = findViewById(R.id.lives);
 
-        keyboard.setEditText(editText);
-        keyboard.setImageView(imageView);
-        keyboard.setTextView(textView);
-        keyboard.setActivity(this);
+        logic = Logic.getInstance();
+        logic.restart();
+        hiddenWord.setText(logic.getVisibleSentence());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { hiddenWord.setShowSoftInputOnFocus(false); } // disable keyboard
     }
+
 }
