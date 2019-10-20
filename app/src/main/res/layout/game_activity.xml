@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context="com.example.galgeleg.GameActivity">
 
     <EditText
@@ -18,7 +19,7 @@
         android:textAllCaps="true"
         android:textSize="36sp" />
 
-    <com.example.galgeleg.MyKeyboard
+    <com.example.galgeleg.Keyboard
         android:id="@+id/keyboard"
         android:layout_width="match_parent"
         android:layout_height="190dp"

@@ -31,8 +31,8 @@ public class ExampleUnitTest {
         game.guessedLetter('q');
         assertEquals(1, game.getWrongGuess());
 
-        assertFalse(game.isGameIsWon());
-        assertFalse(game.isGameIsLost());
+        assertFalse(game.gameIsWon());
+        assertFalse(game.gameIsLost());
     }
 
     @Test
