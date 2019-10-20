@@ -23,14 +23,6 @@ public class Logic {
     private boolean gameIsWon, gameIsLost, previousGuessWasCorrect;
 
     private Logic(){
-        restart();
-    }
-
-    public static Logic getInstance(){
-        return instance;
-    }
-
-    {
         this.wordLibrary = new HashSet<>();
         wordLibrary.add("bil");
         wordLibrary.add("computer");
@@ -41,6 +33,11 @@ public class Logic {
         wordLibrary.add("skovsnegl");
         wordLibrary.add("solsort");
         wordLibrary.add("nitten");
+        restart();
+    }
+
+    public static Logic getInstance(){
+        return instance;
     }
 
     public void restart(){
