@@ -1,7 +1,5 @@
 package com.example.galgeleg;
 
-import com.example.galgeleg.model.Logic;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

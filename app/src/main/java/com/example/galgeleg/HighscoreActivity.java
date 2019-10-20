@@ -1,10 +1,10 @@
 package com.example.galgeleg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class Highscore extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class HighscoreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

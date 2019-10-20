@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.galgeleg.model.Logic;
-
 
 public class GameActivity extends AppCompatActivity {
     protected ImageView imageView;

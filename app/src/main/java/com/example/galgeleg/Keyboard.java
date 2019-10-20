@@ -10,13 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-
 public class Keyboard extends LinearLayout implements View.OnClickListener {
     private SparseArray<Character> btnToLetter;
     private GameActivity g;
 
-
     // TODO: fix every screen rotation calls constructor!
+    public Keyboard(Context context){
+        super(context);
+    }
+
     public Keyboard(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -26,7 +28,6 @@ public class Keyboard extends LinearLayout implements View.OnClickListener {
         this.g = (GameActivity) super.getContext();
         this.btnToLetter = new SparseArray<>();
         initBtns(context);
-        System.out.println("nyt keyboard");
     }
 
     private void initBtns(Context context) {

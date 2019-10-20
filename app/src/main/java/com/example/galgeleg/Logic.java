@@ -1,4 +1,4 @@
-package com.example.galgeleg.model;
+package com.example.galgeleg;
 
 
 import java.io.BufferedReader;

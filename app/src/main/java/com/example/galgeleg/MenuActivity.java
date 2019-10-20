@@ -35,7 +35,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (v == highscoreBtn){
             Log.i("myInfoTag", "highscoreBtn clicked");
-            I = new Intent(this, Highscore.class);
+            I = new Intent(this, HighscoreActivity.class);
         }
         else {
             Log.i("myInfoTag", "helpBtn clicked");
