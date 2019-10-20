@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="com.example.galgeleg.GameActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="291dp"
+        android:layout_height="412dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="0dp"
+        android:background="#FFFFFF"
+        app:srcCompat="@drawable/drawing1" />
+
+    <TextView
+        android:id="@+id/lives"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="193dp"
+        android:layout_marginRight="193dp"
+        android:layout_toStartOf="@+id/hiddenWord"
+        android:layout_toLeftOf="@+id/hiddenWord"
+        android:text="@string/lives"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/hiddenWord"
+        android:layout_width="360dp"
+        android:layout_height="94dp"
+        android:layout_above="@+id/keyboard"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="47dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textAllCaps="true"
+        android:textSize="36sp" />
+
+    <com.example.galgeleg.Keyboard
+        android:id="@+id/keyboard"
+        android:layout_width="348dp"
+        android:layout_height="161dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+    </com.example.galgeleg.Keyboard>
+
+</RelativeLayout>
