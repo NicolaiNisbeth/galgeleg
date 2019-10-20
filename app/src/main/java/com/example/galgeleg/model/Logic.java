@@ -22,7 +22,9 @@ public class Logic {
     private int lives = 6, difficulty = 1, wrongGuess = 0;
     private boolean gameIsWon, gameIsLost, previousGuessWasCorrect;
 
-    private Logic(){}
+    private Logic(){
+        restart();
+    }
 
     public static Logic getInstance(){
         return instance;
@@ -43,15 +45,13 @@ public class Logic {
 
     public void restart(){
         solution = addSolution(difficulty);
-        this.usedLetters = new ArrayList<>();
-        this.visibleSentence = new StringBuilder();
-        usedLetters.clear();
+        usedLetters = new ArrayList<>();
+        visibleSentence = new StringBuilder();
         lives = 6;
         wrongGuess = 0;
         gameIsWon = false;
         gameIsLost = false;
         previousGuessWasCorrect = false;
-
         opdateVisibleSentence();
     }
 
@@ -246,7 +246,7 @@ public class Logic {
         this.lives = lives;
     }
 
-    public boolean isGameIsWon() {
+    public boolean gameIsWon() {
         return gameIsWon;
     }
 
@@ -254,7 +254,7 @@ public class Logic {
         this.gameIsWon = gameIsWon;
     }
 
-    public boolean isGameIsLost() {
+    public boolean gameIsLost() {
         return gameIsLost;
     }
 

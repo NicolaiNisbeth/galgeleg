@@ -13,7 +13,7 @@ import com.example.galgeleg.model.Logic;
 
 public class GameActivity extends AppCompatActivity {
     protected ImageView imageView;
-    protected MyKeyboard keyboard;
+    protected Keyboard keyboard;
     protected EditText hiddenWord;
     protected TextView lives;
     protected Logic logic;
@@ -29,7 +29,6 @@ public class GameActivity extends AppCompatActivity {
         keyboard = findViewById(R.id.keyboard);
 
         logic = Logic.getInstance();
-        logic.restart();
         hiddenWord.setText(logic.getVisibleSentence());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { hiddenWord.setShowSoftInputOnFocus(false); } // disable keyboard

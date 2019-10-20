@@ -11,22 +11,25 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 
-public class MyKeyboard extends LinearLayout implements View.OnClickListener {
+public class Keyboard extends LinearLayout implements View.OnClickListener {
     private SparseArray<Character> btnToLetter;
     private GameActivity g;
 
-    public MyKeyboard(Context context, AttributeSet attrs) {
+
+    // TODO: fix every screen rotation calls constructor!
+    public Keyboard(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MyKeyboard(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Keyboard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.g = (GameActivity) super.getContext();
         this.btnToLetter = new SparseArray<>();
-        initKeyboard(context);
+        initBtns(context);
+        System.out.println("nyt keyboard");
     }
 
-    private void initKeyboard(Context context) {
+    private void initBtns(Context context) {
         LayoutInflater.from(context).inflate(R.layout.keyboard, this, true);
         int btnID;
         for (char i = 'a'; i <= 'z'; i++) {
@@ -59,12 +62,12 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         crossOutLetter(view.getId());
         g.hiddenWord.setText(g.logic.getVisibleSentence());
 
-        if (g.logic.isGameIsWon())
+        if (g.logic.gameIsWon())
             showPopUp("CONGRATULATIONS", "You won!");
         else {
             setHangingMan(g.logic.getLives());
             g.lives.setText("Lives " + g.logic.getLives());
-            if (g.logic.isGameIsLost()) {
+            if (g.logic.gameIsLost()) {
                 showPopUp("UNLUCKY", "You lost!\n\nThe answer was: "+g.logic.printArray(g.logic.getSolution()));
             }
 
@@ -94,15 +97,16 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         endBuild.setPositiveButton("Play Again",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        g.logic.restart();
                         g.finish();
                         g.startActivity(g.getIntent());
                         //g.recreate(); // doesn't reload initial start string on screen until btn pressed
-
                     }});
 
         endBuild.setNegativeButton("Exit",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        g.logic.restart();
                         g.finish();
                     }});
         endBuild.show();
