@@ -1,13 +1,10 @@
 package com.example.galgeleg;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 
 public class GameActivity extends AppCompatActivity {
     protected ImageView imageView;
@@ -24,12 +21,9 @@ public class GameActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         hiddenWord = findViewById(R.id.hiddenWord);
         lives = findViewById(R.id.lives);
-        keyboard = findViewById(R.id.keyboard);
+        keyboard = Keyboard.getInstance(this);
 
         logic = Logic.getInstance();
         hiddenWord.setText(logic.getVisibleSentence());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { hiddenWord.setShowSoftInputOnFocus(false); } // disable keyboard
     }
-
 }

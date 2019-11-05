@@ -14,7 +14,8 @@ import java.util.Set;
 
 
 public class Logic {
-    private static final Logic instance = new Logic();
+    private static Logic instance;
+
     private Set<String> wordLibrary;
     private List<String> solution;
     private List<Character> usedLetters;
@@ -37,6 +38,8 @@ public class Logic {
     }
 
     public static Logic getInstance(){
+        if (instance == null) instance = new Logic();
+
         return instance;
     }
 

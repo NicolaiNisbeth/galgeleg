@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class Keyboard extends LinearLayout implements View.OnClickListener {
+    public static Keyboard instance;
     private SparseArray<Character> btnToLetter;
     private GameActivity g;
 
@@ -28,6 +29,12 @@ public class Keyboard extends LinearLayout implements View.OnClickListener {
         this.g = (GameActivity) super.getContext();
         this.btnToLetter = new SparseArray<>();
         initBtns(context);
+    }
+
+    public static Keyboard getInstance(Context context){
+        if (instance == null) instance = new Keyboard(context);
+
+        return instance;
     }
 
     private void initBtns(Context context) {
@@ -63,6 +70,8 @@ public class Keyboard extends LinearLayout implements View.OnClickListener {
         crossOutLetter(view.getId());
         g.hiddenWord.setText(g.logic.getVisibleSentence());
 
+
+        // TODO: redirect to end game activity
         if (g.logic.gameIsWon())
             showPopUp("CONGRATULATIONS", "You won!");
         else {
@@ -75,12 +84,12 @@ public class Keyboard extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    private void crossOutLetter(int id) {
+    public void crossOutLetter(int id) {
         Button b = findViewById(id);
         b.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter));
     }
 
-    private void setHangingMan(int lives) {
+    public void setHangingMan(int lives) {
         switch (lives){
             case 5: g.imageView.setImageResource(R.drawable.head); break;
             case 4: g.imageView.setImageResource(R.drawable.body); break;
@@ -91,6 +100,7 @@ public class Keyboard extends LinearLayout implements View.OnClickListener {
         }
     }
 
+    // TODO implement activity to showcase transfer of data
     private void showPopUp(String title, String msg){
         AlertDialog.Builder endBuild = new AlertDialog.Builder(super.getContext());
         endBuild.setTitle(title);

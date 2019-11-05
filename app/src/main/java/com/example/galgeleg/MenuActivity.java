@@ -27,21 +27,20 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent I;
 
         if (v == startBtn){
             Log.i("myInfoTag", "startBtn clicked");
-            I = new Intent(this, GameActivity.class);
+            startActivity(new Intent(this, GameActivity.class));
         }
         else if (v == highscoreBtn){
             Log.i("myInfoTag", "highscoreBtn clicked");
-            I = new Intent(this, HighscoreActivity.class);
+            startActivity(new Intent(this, HighscoreActivity.class));
+
         }
-        else {
+        else if (v == helpBtn){
             Log.i("myInfoTag", "helpBtn clicked");
-            I = new Intent(this, HelpActivity.class);
+            startActivity(new Intent(this, HelpActivity.class));
         }
 
-        startActivity(I);
     }
 }
