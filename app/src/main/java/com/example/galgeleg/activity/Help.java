@@ -1,10 +1,12 @@
-package com.example.galgeleg;
+package com.example.galgeleg.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class HelpActivity extends AppCompatActivity {
+import com.example.galgeleg.R;
+
+public class Help extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

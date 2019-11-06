@@ -1,4 +1,4 @@
-package com.example.galgeleg;
+package com.example.galgeleg.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.galgeleg.R;
+
+public class Menu extends AppCompatActivity implements View.OnClickListener {
     private Button startBtn, highscoreBtn, helpBtn;
 
     @Override
@@ -30,16 +32,16 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         if (v == startBtn){
             Log.i("myInfoTag", "startBtn clicked");
-            startActivity(new Intent(this, GameActivity.class));
+            startActivity(new Intent(this, Game.class));
         }
         else if (v == highscoreBtn){
             Log.i("myInfoTag", "highscoreBtn clicked");
-            startActivity(new Intent(this, HighscoreActivity.class));
+            startActivity(new Intent(this, Highscore.class));
 
         }
         else if (v == helpBtn){
             Log.i("myInfoTag", "helpBtn clicked");
-            startActivity(new Intent(this, HelpActivity.class));
+            startActivity(new Intent(this, Help.class));
         }
 
     }
