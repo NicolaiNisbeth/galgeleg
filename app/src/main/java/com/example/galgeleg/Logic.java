@@ -16,7 +16,7 @@ import java.util.Set;
 public class Logic {
     private static Logic instance;
 
-    private Set<String> wordLibrary;
+    private HashSet<String> wordLibrary;
     private List<String> solution;
     private ArrayList<String> usedLetters;
     private StringBuilder visibleSentence;
@@ -125,10 +125,10 @@ public class Logic {
 
     /**
      * Hent ord fra DRs forside (https://dr.dk)
+     * @return
      */
-    public void hentOrdFraDr() throws Exception {
+    public HashSet<String> hentOrdFraDr() throws Exception {
         String data = hentUrl("https://dr.dk");
-        //System.out.println("data = " + data);
 
         data = data.substring(data.indexOf("<body")). // fjern headere
                 replaceAll("<.+?>", " ").toLowerCase(). // fjern tags
@@ -142,13 +142,7 @@ public class Logic {
                 replaceAll(" [a-zæøå] "," "). // fjern 1-bogstavsord
                 replaceAll(" [a-zæøå][a-zæøå] "," "); // fjern 2-bogstavsord
 
-        System.out.println("data = " + data);
-        System.out.println("data = " + Arrays.asList(data.split("\\s+")));
-        wordLibrary.clear();
-        wordLibrary.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
-
-        System.out.println("muligeOrd = " + wordLibrary);
-        restart();
+        return new HashSet<>(Arrays.asList(data.replaceAll("\\W+"," ").trim().split(" ")));
     }
 
 
@@ -209,7 +203,7 @@ public class Logic {
         return wordLibrary;
     }
 
-    public void setWordLibrary(Set<String> wordLibrary) {
+    public void setWordLibrary(HashSet<String> wordLibrary) {
         this.wordLibrary = wordLibrary;
     }
 
