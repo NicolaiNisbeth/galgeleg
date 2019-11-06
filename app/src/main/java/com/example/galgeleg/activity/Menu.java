@@ -9,9 +9,13 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.galgeleg.R;
+import com.example.galgeleg.util.PreferenceReader;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
     private Button startBtn, highscoreBtn, helpBtn;
+    public static final String PREF_USER_FIRST_TIME = "user_first_time";
+    private boolean isUserFirstTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,13 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         startBtn.setOnClickListener(this);
         highscoreBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
+
+        isUserFirstTime = Boolean.valueOf(PreferenceReader.readSharedSetting(this, PREF_USER_FIRST_TIME, "true"));
+        Intent introIntent = new Intent(this, Onboarding.class);
+        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+
+        if (isUserFirstTime)
+            startActivity(introIntent);
     }
 
     @Override
