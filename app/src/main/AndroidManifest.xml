@@ -12,6 +12,7 @@
         <activity android:name=".activity.GameEnd"></activity>
         <activity android:name=".activity.Highscore" />
         <activity android:name=".activity.Help" />
+        <activity android:name=".activity.Onboarding" />
         <activity android:name=".activity.Game" />
         <activity android:name=".activity.Menu">
             <intent-filter>
