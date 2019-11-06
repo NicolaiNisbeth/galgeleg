@@ -8,6 +8,9 @@ import com.example.galgeleg.R;
 
 public class Highscore extends AppCompatActivity {
 
+    // se Nordfalk video og nedenstående
+    // https://www.youtube.com/watch?v=IGGT_jfZQrA
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

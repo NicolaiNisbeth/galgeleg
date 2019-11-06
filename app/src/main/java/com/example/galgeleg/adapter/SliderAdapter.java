@@ -24,18 +24,22 @@ public class SliderAdapter extends PagerAdapter {
     private int[] slide_images = {
             R.drawable.onboarding1,
             R.drawable.onboarding2,
-
+            R.drawable.onboarding1
     };
 
+
     private String[] slide_headings = {
-            "We are Audientes",
-            "Bluetooth device",
+            "Welcome to Hangman",
+            "Difficulty Through the Roof",
+            "Let's get Started"
 
     };
 
     private String[] slide_descs = {
-            "Our mission is....",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing eli, sed do eiusmod tempor incididunt ut labore et dolore magna"
+            "The game is about guessing the correct word within a certain number of guesses",
+            "The words are uniquely chosen from the radio of Denmark",
+            "I challenge you to prove yourself and be placed on our all time high score"
+
 
     };
 

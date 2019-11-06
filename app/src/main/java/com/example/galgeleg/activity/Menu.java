@@ -12,9 +12,9 @@ import com.example.galgeleg.R;
 import com.example.galgeleg.util.PreferenceReader;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
-    private Button startBtn, highscoreBtn, helpBtn;
-    public static final String PREF_USER_FIRST_TIME = "user_first_time";
-    private boolean isUserFirstTime;
+    private Button startGameBtn, highscoreBtn, helpBtn;
+    public static final String PREF_NEW_VISITOR = "new_visitor";
+    private boolean newVisitor;
 
 
     @Override
@@ -22,27 +22,28 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_activity);
 
-        startBtn = findViewById(R.id.startBtn);
+        startGameBtn = findViewById(R.id.startBtn);
         highscoreBtn = findViewById(R.id.highscoreBtn);
         helpBtn = findViewById(R.id.helpBtn);
 
-        startBtn.setOnClickListener(this);
+        startGameBtn.setOnClickListener(this);
         highscoreBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
 
-        isUserFirstTime = Boolean.valueOf(PreferenceReader.readSharedSetting(this, PREF_USER_FIRST_TIME, "true"));
+        newVisitor = Boolean.valueOf(PreferenceReader.readSharedSetting(this, PREF_NEW_VISITOR, "true"));
         Intent introIntent = new Intent(this, Onboarding.class);
-        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+        introIntent.putExtra(PREF_NEW_VISITOR, newVisitor);
 
-        if (isUserFirstTime)
+        if (newVisitor)
             startActivity(introIntent);
     }
 
     @Override
     public void onClick(View v) {
 
-        if (v == startBtn){
-            Log.i("myInfoTag", "startBtn clicked");
+        // TODO: check cache and load words from dr async
+        if (v == startGameBtn){
+            Log.i("myInfoTag", "startGameBtn clicked");
             startActivity(new Intent(this, Game.class));
         }
         else if (v == highscoreBtn){

@@ -3,14 +3,10 @@ package com.example.galgeleg.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +24,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
     private TextView[] mDots;
     private Button mNextBtn, mSkipBtn;
     private int mCurrentPage;
-    private final int NUM_OF_DOTS = 2;
+    private final int NUM_OF_DOTS = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +89,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
 
     private void launchHearingTestScreen(){
 
-        PreferenceReader.saveSharedSetting(this, Menu.PREF_USER_FIRST_TIME, "false");
+        PreferenceReader.saveSharedSetting(this, Menu.PREF_NEW_VISITOR, "false");
 
         Intent intent = new Intent(this, Menu.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
