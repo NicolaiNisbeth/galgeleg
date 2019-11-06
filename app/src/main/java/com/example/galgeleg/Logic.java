@@ -18,7 +18,7 @@ public class Logic {
 
     private Set<String> wordLibrary;
     private List<String> solution;
-    private List<Character> usedLetters;
+    private ArrayList<String> usedLetters;
     private StringBuilder visibleSentence;
     private int lives = 6, difficulty = 1, wrongGuess = 0;
     private boolean gameIsWon, gameIsLost, previousGuessWasCorrect;
@@ -81,7 +81,7 @@ public class Logic {
         return solution;
     }
 
-    public void guessedLetter(char letter) {
+    public void guessedLetter(String letter) {
         //Log.d(TAG, "guessedLetter: " + letter);
         if (gameIsWon || usedLetters.contains(letter) || gameIsLost) return;
 
@@ -97,10 +97,8 @@ public class Logic {
         opdateVisibleSentence();
     }
 
-    private boolean solutionHas(char letter) {
-        for (String s : solution)
-            if (s.contains(""+letter)) return true;
-        return false;
+    private boolean solutionHas(String letter) {
+        return solution.contains(letter);
     }
 
 
@@ -222,11 +220,11 @@ public class Logic {
         this.solution = solution;
     }
 
-    public List<Character> getUsedLetters() {
+    public ArrayList<String> getUsedLetters() {
         return usedLetters;
     }
 
-    public void setUsedLetters(List<Character> usedLetters) {
+    public void setUsedLetters(ArrayList<String> usedLetters) {
         this.usedLetters = usedLetters;
     }
 
