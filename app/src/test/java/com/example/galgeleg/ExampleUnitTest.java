@@ -20,13 +20,13 @@ public class ExampleUnitTest {
 
         game.restart();
 
-        game.guessedLetter('e');
-        game.guessedLetter('s');
+        game.guessedLetter("e");
+        game.guessedLetter("s");
         assertEquals(0, game.getWrongGuess());
 
         assertEquals("s___s_e__", game.getVisibleSentence().toString());
 
-        game.guessedLetter('q');
+        game.guessedLetter("q");
         assertEquals(1, game.getWrongGuess());
 
         assertFalse(game.gameIsWon());

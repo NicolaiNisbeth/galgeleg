@@ -59,17 +59,18 @@ public class Logic {
         visibleSentence.setLength(0);
         gameIsWon = true;
 
-        for (String w : solution){
-            char[] word = w.toCharArray();
-            for (char letter : word){
+
+        for (int i = 0; i < solution.size(); i++) {
+            for (int j = 0; j < solution.get(i).length(); j++) {
+                String letter = solution.get(i).substring(j, j + 1);
                 if (usedLetters.contains(letter)) visibleSentence.append(letter);
                 else {
                     visibleSentence.append("_");
                     gameIsWon = false;
                 }
             }
-            //visibleSentence.append("  "); seperate words when difficulty > 1
         }
+
     }
 
     private List<String> addSolution(int difficulty) {
@@ -98,7 +99,7 @@ public class Logic {
     }
 
     private boolean solutionHas(String letter) {
-        return solution.contains(letter);
+        return solution.get(0).contains(letter);
     }
 
 
@@ -116,7 +117,7 @@ public class Logic {
         StringBuilder sb = new StringBuilder();
         String linje = br.readLine();
         while (linje != null) {
-            sb.append(linje + "\n");
+            sb.append(linje).append("\n");
             linje = br.readLine();
         }
         return sb.toString();
