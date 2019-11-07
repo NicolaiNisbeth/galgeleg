@@ -3,12 +3,10 @@ package com.example.galgeleg.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.galgeleg.Logic;
@@ -21,7 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
-    private Button startGameBtn, highscoreBtn, helpBtn;
+    private Button startGameBtn, leaderboardBtn, helpBtn;
     public static final String PREF_NEW_VISITOR = "new_visitor";
     private boolean newVisitor;
 
@@ -32,11 +30,11 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.menu_activity);
 
         startGameBtn = findViewById(R.id.startBtn);
-        highscoreBtn = findViewById(R.id.highscoreBtn);
+        leaderboardBtn = findViewById(R.id.highscoreBtn);
         helpBtn = findViewById(R.id.helpBtn);
 
         startGameBtn.setOnClickListener(this);
-        highscoreBtn.setOnClickListener(this);
+        leaderboardBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
 
         newVisitor = Boolean.valueOf(PreferenceReader.readSharedSetting(this, PREF_NEW_VISITOR, "true"));
@@ -60,9 +58,9 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             Log.i("myInfoTag", "startGameBtn clicked");
             startActivity(new Intent(this, Game.class));
         }
-        else if (v == highscoreBtn){
-            Log.i("myInfoTag", "highscoreBtn clicked");
-            startActivity(new Intent(this, Highscore.class));
+        else if (v == leaderboardBtn){
+            Log.i("myInfoTag", "leaderboardBtn clicked");
+            startActivity(new Intent(this, Leaderboard.class));
 
         }
         else if (v == helpBtn){
@@ -107,7 +105,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Set<String> words) {
-            //System.out.println(words);
+            System.out.println(words);
         }
     }
 

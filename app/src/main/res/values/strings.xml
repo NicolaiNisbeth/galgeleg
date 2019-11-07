@@ -2,7 +2,7 @@
     <string name="app_name">s175565 NicolaiNisbeth Galgeleg</string>
     <string name="menuTitle">Hangman</string>
     <string name="startBtn">Start</string>
-    <string name="highscoreBtn">Highscore</string>
+    <string name="leaderboardBtn">Leaderboard</string>
     <string name="helpBtn">Help</string>
     <string name="credits">Nicolai Nisbeth s175565</string>
     <string name="qBtn">q</string>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:id="@+id/list_elem_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp" android:background="@color/colorAccent">
+
+
+        <TextView
+            android:id="@+id/list_elem_ranking"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:layout_weight="1"
+            android:text="Rank"
+            android:gravity="center"
+            android:textColor="@color/white" >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_elem_name"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:layout_weight="1"
+            android:text="Player"
+            android:gravity="center"
+
+            android:textColor="@color/white" >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_elem_score"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:layout_weight="1"
+            android:text="Turns"
+            android:gravity="center"
+
+            android:textColor="@color/white" >
+        </TextView>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/list_elem_layout"
+        tools:layout_editor_absoluteX="306dp"
+        tools:layout_editor_absoluteY="5dp" />
+
+
+</RelativeLayout>
