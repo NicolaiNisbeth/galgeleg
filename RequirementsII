@@ -1,0 +1,33 @@
+TODO
+
+K1
+Der skal være mindst 3 skærmbilleder
+
+K2
+Lav i stedet for dialog, en endgame aktivitet som modtager data fra game aktivitet og alt efter om spilleren har tabt eller fundet modificeres endgame skærmbilledet
+
+
+K3
+Lav dine egne deklarative layout
+
+K4
+Projektet er versioneret
+
+K5
+Ret i values/string.xml, så der står <string name="app_name">s175565 Nicolais Super Galgeleg</string>
+
+K6.1
+Highscoreliste med recyclerview
+
+				
+1	nwhn	213
+2	asd		90
+3	ækæl	50
+
+
+K6.2
+Flertrådet programmering til hente ord fra DR og gemme lokalt i cache.
+
+K6.3
+Gemmer data lokalt i onboarding til at tjekke om det er første brug af appen vha PreferenceManager.
+

@@ -3,10 +3,12 @@ package com.example.galgeleg.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.galgeleg.Logic;
@@ -41,16 +43,17 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         Intent introIntent = new Intent(this, Onboarding.class);
         introIntent.putExtra(PREF_NEW_VISITOR, newVisitor);
 
-        if (newVisitor)
+        new DownloadWordsFromDR().execute();
+
+        if (newVisitor) {
             startActivity(introIntent);
+        }
     }
 
     @Override
     public void onClick(View v) {
 
         loadWordCache();
-
-        new DownloadWordsFromDR().execute();
 
         // TODO: check cache and load words from dr async
         if (v == startGameBtn){
@@ -72,11 +75,14 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     private void loadWordCache() {
         Logic l = Logic.getInstance();
 
-        String data = PreferenceReader.readSharedSetting(this, "words", "no values");
+        String data = PreferenceReader.readSharedSetting(this, "words", "noValues");
         String[] words = data.replaceAll("\\W+"," ").trim().split(" ");
+
+        System.out.println("CACHE: " + Arrays.toString(words));
 
         l.getWordLibrary().clear();
         l.getWordLibrary().addAll(new HashSet<>(Arrays.asList(words)));
+        l.restart();
     }
 
 
@@ -101,7 +107,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Set<String> words) {
-            System.out.println(words);
+            //System.out.println(words);
         }
     }
 
