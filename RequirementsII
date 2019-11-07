@@ -31,3 +31,8 @@ Flertrådet programmering til hente ord fra DR og gemme lokalt i cache.
 K6.3
 Gemmer data lokalt i onboarding til at tjekke om det er første brug af appen vha PreferenceManager.
 
+
+Bonus:
+Indbyg en funktion i Galgeleg der lader brugeren kigge alle ordene igennem
+- Brug et ListView
+Når brugeren klikker på et ord skal galgelegenstarte op med dette ord

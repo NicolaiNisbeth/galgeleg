@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp" >
+
+    <TextView
+        android:id="@+id/list_elem_ranking"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_weight="1"
+        android:text="pos"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark" >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/list_elem_name"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_weight="1"
+        android:text="name"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark" >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/list_elem_score"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_weight="1"
+        android:text="score"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark" >
+    </TextView>
+</LinearLayout>
