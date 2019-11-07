@@ -40,11 +40,10 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_weight="1"
-            android:text="Tries"
             android:gravity="center"
+            android:text="Score"
 
-            android:textColor="@color/white" >
-        </TextView>
+            android:textColor="@color/white"></TextView>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

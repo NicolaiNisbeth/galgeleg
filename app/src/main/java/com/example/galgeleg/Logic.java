@@ -25,6 +25,18 @@ public class Logic {
 
     private Logic(){
         this.wordLibrary = new HashSet<>();
+
+        // TODO: remember to delete before submission
+        wordLibrary.add("bil");
+        wordLibrary.add("computer");
+        wordLibrary.add("programmering");
+        wordLibrary.add("motorvej");
+        wordLibrary.add("busrute");
+        wordLibrary.add("gangsti");
+        wordLibrary.add("skovsnegl");
+        wordLibrary.add("solsort");
+        wordLibrary.add("nitten");
+        restart();
     }
 
     public static Logic getInstance(){

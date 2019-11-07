@@ -41,7 +41,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         Intent introIntent = new Intent(this, Onboarding.class);
         introIntent.putExtra(PREF_NEW_VISITOR, newVisitor);
 
-        new DownloadWordsFromDR().execute();
+        //new loadWordsFromDR().execute(); // TODO: uncomment before submission
 
         if (newVisitor) {
             startActivity(introIntent);
@@ -54,7 +54,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
         // TODO: check cache and load words from dr async
         if (v == startGameBtn){
-            applyWordCache();
+            //applyWordCache(); // TODO: uncomment before submission
             Log.i("myInfoTag", "startGameBtn clicked");
             startActivity(new Intent(this, Game.class));
         }
@@ -84,7 +84,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    private class DownloadWordsFromDR extends AsyncTask<URL, Integer, Set<String>> {
+    private class loadWordsFromDR extends AsyncTask<URL, Integer, Set<String>> {
 
         protected Set<String> doInBackground(URL... urls) {
             Logic l = Logic.getInstance();

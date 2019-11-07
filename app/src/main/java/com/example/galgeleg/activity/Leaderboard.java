@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.galgeleg.R;
+import com.example.galgeleg.util.PreferenceReader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class Leaderboard extends AppCompatActivity {
 
@@ -22,11 +24,14 @@ public class Leaderboard extends AppCompatActivity {
     // https://www.youtube.com/watch?v=_ziMhIYjy0E&feature=youtu.be
 
 
+    /*
     String[] playerNames = {"TheShackledOne", "FNC Bwipo", "JUGKlNG", "MSF Decay", "Saim Sejoing", "baxsxasd",
     "Mldk1ng", "Teddy0", "Iziio", "Diablo v2", "Agurin", "Dîamondprox", "EU funny game", "the inescapable",
     "inspiredd", "v0PnXqLxFmlfcD83s", "Chrisberg", "SK Selfmade", "Ssutres", "YOY N0 SEE"};
+        */
 
-    private ArrayList<String> playerNamesList = new ArrayList<>(Arrays.asList(playerNames));
+    private String[] names = new String[20], scores = new String[20];
+    //private ArrayList<String> playerNamesList = new ArrayList<>(Arrays.asList(playerNames));
     private ListElemAdapter elemAdapter = new ListElemAdapter();
     private RecyclerView recyclerView;
 
@@ -34,6 +39,10 @@ public class Leaderboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leaderboard_activity);
+
+
+        //names = PreferenceReader.readSharedSetting(getBaseContext(), "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
+        //scores = PreferenceReader.readSharedSetting(getBaseContext(), "SCORES", "NO_SCORES").replaceAll("\\W+"," ").trim().split(" ");
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -49,18 +58,18 @@ public class Leaderboard extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ListElemViewholder holder, int position) {
+        public void onBindViewHolder(@NonNull ListElemViewholder holder, int i) {
             // TODO: read data from preference manager
 
+            holder.ranking.setText("" + (i + 1));
+            holder.name.setText(names[i]);
+            holder.score.setText(scores[i]);
 
-            holder.ranking.setText("" + (position + 1));
-            holder.name.setText(playerNamesList.get(position));
-            holder.score.setText("" + (position + 1 * 2));
         }
 
         @Override
         public int getItemCount() {
-            return playerNamesList.size();
+            return names.length;
         }
     }
 

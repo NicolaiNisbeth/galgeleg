@@ -1,11 +1,8 @@
 package com.example.galgeleg.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.galgeleg.Keyboard;
 import com.example.galgeleg.Logic;
 import com.example.galgeleg.R;
+import com.example.galgeleg.util.PreferenceReader;
+
+import java.util.Arrays;
 
 public class Game extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView;
@@ -26,6 +25,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
     private EditText hiddenWord;
     private TextView lives;
     private Logic logic;
+    private String[] updatedNames = new String[20], updatedScores = new String[20];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,35 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+    public static void main(String[] args) {
+        int[] asd = new int[23];
+
+        int j = 1;
+        for (int i = asd.length-1; i >= 0; i--) {
+            int x = j * j++;
+            asd[i] = x;
+        }
+
+        int currentScore = 330;
+
+        int i;
+        for (i = 0; i < asd.length; i++){
+            if (currentScore > asd[i]) break;
+        }
+
+        for (int x = asd.length - 1; x > i; x--){
+            asd[x] = asd[x-1];
+        }
+
+        asd[i] = currentScore;
+
+        for (int k : asd)
+            System.out.println(k);
+
+
+    }
+
+
     @Override
     public void onClick(View view) {
         crossOutLetter(view.getId());
@@ -64,16 +93,61 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
 
         // TODO: redirect to end game activity
         if (logic.gameIsWon()) {
+            saveScore(logic.getLives() * logic.getSolution().get(0).length(), "placeholder");
             endGame(true);
-            System.out.println("YOU WON!");
         }
         else if (logic.gameIsLost()) {
+            saveScore(logic.getLives() * logic.getSolution().get(0).length(), "placeholder");
             endGame(false);
-            System.out.println("YOU LOST!");
         }
         else {
             setHangingMan(logic.getLives());
         }
+    }
+
+    private void saveScore(int currentScore, String currentName) {
+        String[] names = PreferenceReader.readSharedSetting(this, "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
+        String[] scores = PreferenceReader.readSharedSetting(this, "SCORES", "NO_VALUES").replaceAll("\\W+"," ").trim().split(" ");
+
+        if (names[0].equals("NO_NAMES") && scores[0].equals("NO_SCORES")){
+            updatedNames[0] = currentName;
+            updatedScores[0] = String.valueOf(currentScore);
+        }
+        else if (names.length > 1) {
+            int i;
+            for (i = 0; i < updatedNames.length; i++){
+                int highscore = Integer.valueOf(scores[i]);
+                if (currentScore > highscore) break;
+            }
+
+            for (int x = scores.length - 1; x > i; x--){
+                scores[x] = scores[x-1];
+                names[x] = names[x-1];
+            }
+
+            scores[i] = String.valueOf(currentScore);
+            names[i] = currentName;
+
+            // TODO: remove introduced arrays by saving 20 players in preferenceManager
+            for (int l = 0; l < scores.length; l++) {
+                updatedNames[l] = names[l];
+                updatedScores[l] = scores[l];
+            }
+        }
+        else {
+            if (currentScore > Integer.valueOf(scores[0])){
+                updatedScores[0] = String.valueOf(currentScore);
+                updatedScores[1] = scores[0];
+            }
+            else {
+                updatedScores[0] = scores[0];
+                updatedScores[1] = String.valueOf(currentScore);
+            }
+        }
+
+
+        PreferenceReader.saveSharedSetting(this, "NAMES", Arrays.toString(updatedNames));
+        PreferenceReader.saveSharedSetting(this, "SCORES", Arrays.toString(updatedScores));
     }
 
     public void endGame(boolean won){
