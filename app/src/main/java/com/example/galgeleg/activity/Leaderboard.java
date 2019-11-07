@@ -24,7 +24,7 @@ public class Leaderboard extends AppCompatActivity {
 
     String[] playerNames = {"TheShackledOne", "FNC Bwipo", "JUGKlNG", "MSF Decay", "Saim Sejoing", "baxsxasd",
     "Mldk1ng", "Teddy0", "Iziio", "Diablo v2", "Agurin", "Dîamondprox", "EU funny game", "the inescapable",
-    "inspiredd", "v0PnXqLxFmlfcD83s", "Chrisberg", "SK Selfmade", "Ssutres"};
+    "inspiredd", "v0PnXqLxFmlfcD83s", "Chrisberg", "SK Selfmade", "Ssutres", "YOY N0 SEE"};
 
     private ArrayList<String> playerNamesList = new ArrayList<>(Arrays.asList(playerNames));
     private ListElemAdapter elemAdapter = new ListElemAdapter();
@@ -50,6 +50,9 @@ public class Leaderboard extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ListElemViewholder holder, int position) {
+            // TODO: read data from preference manager
+
+
             holder.ranking.setText("" + (position + 1));
             holder.name.setText(playerNamesList.get(position));
             holder.score.setText("" + (position + 1 * 2));

@@ -51,10 +51,10 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        loadWordCache();
 
         // TODO: check cache and load words from dr async
         if (v == startGameBtn){
+            applyWordCache();
             Log.i("myInfoTag", "startGameBtn clicked");
             startActivity(new Intent(this, Game.class));
         }
@@ -70,7 +70,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private void loadWordCache() {
+    private void applyWordCache() {
         Logic l = Logic.getInstance();
 
         String data = PreferenceReader.readSharedSetting(this, "words", "noValues");
