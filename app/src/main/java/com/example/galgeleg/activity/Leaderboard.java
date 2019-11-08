@@ -18,20 +18,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class Leaderboard extends AppCompatActivity {
-
-    // se nedenstående
-    // https://drive.google.com/file/d/1wt2wq0yFZFPqFirYwvGXbWDBEEvfdh_G/view
-    // https://www.youtube.com/watch?v=_ziMhIYjy0E&feature=youtu.be
-
-
-    /*
-    String[] playerNames = {"TheShackledOne", "FNC Bwipo", "JUGKlNG", "MSF Decay", "Saim Sejoing", "baxsxasd",
-    "Mldk1ng", "Teddy0", "Iziio", "Diablo v2", "Agurin", "Dîamondprox", "EU funny game", "the inescapable",
-    "inspiredd", "v0PnXqLxFmlfcD83s", "Chrisberg", "SK Selfmade", "Ssutres", "YOY N0 SEE"};
-        */
-
-    private String[] names = new String[20], scores = new String[20];
-    //private ArrayList<String> playerNamesList = new ArrayList<>(Arrays.asList(playerNames));
+    private String[] names, scores;
     private ListElemAdapter elemAdapter = new ListElemAdapter();
     private RecyclerView recyclerView;
 
@@ -41,8 +28,8 @@ public class Leaderboard extends AppCompatActivity {
         setContentView(R.layout.leaderboard_activity);
 
 
-        //names = PreferenceReader.readSharedSetting(getBaseContext(), "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
-        //scores = PreferenceReader.readSharedSetting(getBaseContext(), "SCORES", "NO_SCORES").replaceAll("\\W+"," ").trim().split(" ");
+        names = PreferenceReader.readSharedSetting(getBaseContext(), "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
+        scores = PreferenceReader.readSharedSetting(getBaseContext(), "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -59,7 +46,7 @@ public class Leaderboard extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ListElemViewholder holder, int i) {
-            // TODO: read data from preference manager
+            if (scores[i].equals("0") || names[i].equals("NO_NAMES")) return;
 
             holder.ranking.setText("" + (i + 1));
             holder.name.setText(names[i]);
@@ -69,7 +56,7 @@ public class Leaderboard extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return names.length;
+            return scores.length;
         }
     }
 

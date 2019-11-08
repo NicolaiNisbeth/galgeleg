@@ -54,36 +54,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
         outState.putStringArrayList("usedLetters", logic.getUsedLetters());
     }
 
-
-    public static void main(String[] args) {
-        int[] asd = new int[23];
-
-        int j = 1;
-        for (int i = asd.length-1; i >= 0; i--) {
-            int x = j * j++;
-            asd[i] = x;
-        }
-
-        int currentScore = 330;
-
-        int i;
-        for (i = 0; i < asd.length; i++){
-            if (currentScore > asd[i]) break;
-        }
-
-        for (int x = asd.length - 1; x > i; x--){
-            asd[x] = asd[x-1];
-        }
-
-        asd[i] = currentScore;
-
-        for (int k : asd)
-            System.out.println(k);
-
-
-    }
-
-
     @Override
     public void onClick(View view) {
         crossOutLetter(view.getId());
@@ -97,7 +67,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
             endGame(true);
         }
         else if (logic.gameIsLost()) {
-            saveScore(logic.getLives() * logic.getSolution().get(0).length(), "placeholder");
             endGame(false);
         }
         else {
@@ -107,47 +76,31 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
 
     private void saveScore(int currentScore, String currentName) {
         String[] names = PreferenceReader.readSharedSetting(this, "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
-        String[] scores = PreferenceReader.readSharedSetting(this, "SCORES", "NO_VALUES").replaceAll("\\W+"," ").trim().split(" ");
+        String[] scores = PreferenceReader.readSharedSetting(this, "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
 
-        if (names[0].equals("NO_NAMES") && scores[0].equals("NO_SCORES")){
-            updatedNames[0] = currentName;
-            updatedScores[0] = String.valueOf(currentScore);
-        }
-        else if (names.length > 1) {
-            int i;
-            for (i = 0; i < updatedNames.length; i++){
-                int highscore = Integer.valueOf(scores[i]);
-                if (currentScore > highscore) break;
-            }
 
-            for (int x = scores.length - 1; x > i; x--){
-                scores[x] = scores[x-1];
-                names[x] = names[x-1];
-            }
-
-            scores[i] = String.valueOf(currentScore);
-            names[i] = currentName;
-
-            // TODO: remove introduced arrays by saving 20 players in preferenceManager
-            for (int l = 0; l < scores.length; l++) {
-                updatedNames[l] = names[l];
-                updatedScores[l] = scores[l];
-            }
-        }
-        else {
-            if (currentScore > Integer.valueOf(scores[0])){
-                updatedScores[0] = String.valueOf(currentScore);
-                updatedScores[1] = scores[0];
-            }
-            else {
-                updatedScores[0] = scores[0];
-                updatedScores[1] = String.valueOf(currentScore);
-            }
+        if (names[0].equals("NO_NAMES")){
+            names = new String[20];
+            scores = new String[20];
+            Arrays.fill(scores, "0");
         }
 
+        int i;
+        for (i = 0; i < updatedNames.length; i++){
+            int highscore = Integer.valueOf(scores[i]);
+            if (currentScore > highscore) break;
+        }
 
-        PreferenceReader.saveSharedSetting(this, "NAMES", Arrays.toString(updatedNames));
-        PreferenceReader.saveSharedSetting(this, "SCORES", Arrays.toString(updatedScores));
+        for (int x = scores.length - 1; x > i; x--){
+            scores[x] = scores[x-1];
+            names[x] = names[x-1];
+        }
+
+        scores[i] = String.valueOf(currentScore);
+        names[i] = currentName;
+
+        PreferenceReader.saveSharedSetting(this, "NAMES", Arrays.toString(names));
+        PreferenceReader.saveSharedSetting(this, "SCORES", Arrays.toString(scores));
     }
 
     public void endGame(boolean won){
