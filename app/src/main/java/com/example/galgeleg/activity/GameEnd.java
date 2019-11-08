@@ -46,9 +46,6 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        //independent of choice - data needs to be stored to display in high score !
-
         if (v == menu){
             Intent i = new Intent(this, Menu.class);
             finish();

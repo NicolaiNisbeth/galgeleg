@@ -5,9 +5,6 @@ package com.example.galgeleg.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * https://www.sundanesepeople.com/creating-onboarding-screen-android-studio/
  */
@@ -32,5 +29,4 @@ public class PreferenceReader {
         editor.putString(settingName, settingValue);
         editor.apply();
     }
-
 }

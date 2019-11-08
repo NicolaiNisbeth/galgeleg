@@ -27,22 +27,17 @@ public class SliderAdapter extends PagerAdapter {
             R.drawable.onboarding1
     };
 
-
     private String[] slide_headings = {
             "Welcome to Hangman",
             "Difficulty Through the Roof",
             "Let's get Started"
-
     };
 
     private String[] slide_descs = {
             "The game is about guessing the correct word within a certain number of guesses",
             "The words are uniquely chosen from the radio of Denmark",
             "I challenge you to prove yourself and be placed on our all time high score"
-
-
     };
-
 
     public SliderAdapter(Context context){
         this.context = context;

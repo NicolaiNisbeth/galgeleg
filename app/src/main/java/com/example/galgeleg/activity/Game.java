@@ -25,7 +25,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
     private EditText hiddenWord;
     private TextView lives;
     private Logic logic;
-    private String[] updatedNames = new String[20], updatedScores = new String[20];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +38,16 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
         keyboard = findViewById(R.id.keyboard);
 
         logic = Logic.getInstance();
+        lives.setText("Lives " + logic.getLives());
         hiddenWord.setText(logic.getVisibleSentence());
 
+        // TODO: fix on screen rotation
         if (savedInstanceState != null){
             System.out.println(savedInstanceState.getInt("lives"));
             System.out.println(savedInstanceState.getStringArrayList("usedLetters"));
         }
+
+        // update UI
     }
 
     @Override
@@ -61,9 +64,9 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
         hiddenWord.setText(logic.getVisibleSentence());
         lives.setText("Lives " + logic.getLives());
 
-        // TODO: redirect to end game activity
         if (logic.gameIsWon()) {
-            saveScore(logic.getLives() * logic.getSolution().get(0).length(), "placeholder");
+            int score = logic.getLives() * logic.getSolution().get(0).length();
+            saveScore(score, "Player1");
             endGame(true);
         }
         else if (logic.gameIsLost()) {
@@ -85,17 +88,17 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
             Arrays.fill(scores, "0");
         }
 
+        // find position i to place currentScore
         int i;
-        for (i = 0; i < updatedNames.length; i++){
-            int highscore = Integer.valueOf(scores[i]);
-            if (currentScore > highscore) break;
+        for (i = 0; i < scores.length; i++) if (currentScore > Integer.valueOf(scores[i])) break;
+
+        // right shift array
+        for (int j = scores.length - 1; j > i; j--){
+            scores[j] = scores[j-1];
+            names[j] = names[j-1];
         }
 
-        for (int x = scores.length - 1; x > i; x--){
-            scores[x] = scores[x-1];
-            names[x] = names[x-1];
-        }
-
+        // insert current score in position i
         scores[i] = String.valueOf(currentScore);
         names[i] = currentName;
 

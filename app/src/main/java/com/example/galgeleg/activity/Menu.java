@@ -3,7 +3,6 @@ package com.example.galgeleg.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,20 +29,20 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.menu_activity);
 
         startGameBtn = findViewById(R.id.startBtn);
-        leaderboardBtn = findViewById(R.id.highscoreBtn);
+        leaderboardBtn = findViewById(R.id.leaderboardBtn);
         helpBtn = findViewById(R.id.helpBtn);
 
         startGameBtn.setOnClickListener(this);
         leaderboardBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
 
+        new loadWordsFromDR().execute(); // TODO: uncomment before submission
+        applyWordCache(); // TODO: uncomment before submission
+
         newVisitor = Boolean.valueOf(PreferenceReader.readSharedSetting(this, PREF_NEW_VISITOR, "true"));
-        Intent introIntent = new Intent(this, Onboarding.class);
-        introIntent.putExtra(PREF_NEW_VISITOR, newVisitor);
-
-        //new loadWordsFromDR().execute(); // TODO: uncomment before submission
-
         if (newVisitor) {
+            Intent introIntent = new Intent(this, Onboarding.class);
+            introIntent.putExtra(PREF_NEW_VISITOR, newVisitor);
             startActivity(introIntent);
         }
     }
@@ -54,26 +53,21 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
         // TODO: check cache and load words from dr async
         if (v == startGameBtn){
-            //applyWordCache(); // TODO: uncomment before submission
-            Log.i("myInfoTag", "startGameBtn clicked");
             startActivity(new Intent(this, Game.class));
         }
         else if (v == leaderboardBtn){
-            Log.i("myInfoTag", "leaderboardBtn clicked");
             startActivity(new Intent(this, Leaderboard.class));
 
         }
         else if (v == helpBtn){
-            Log.i("myInfoTag", "helpBtn clicked");
             startActivity(new Intent(this, Help.class));
         }
-
     }
 
     private void applyWordCache() {
         Logic l = Logic.getInstance();
 
-        String data = PreferenceReader.readSharedSetting(this, "words", "noValues");
+        String data = PreferenceReader.readSharedSetting(this, "WORDS", "noValues");
         String[] words = data.replaceAll("\\W+"," ").trim().split(" ");
 
         System.out.println("CACHE: " + Arrays.toString(words));
@@ -94,7 +88,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
                 words = l.hentOrdFraDr();
                 l.getWordLibrary().clear();
                 l.getWordLibrary().addAll(words);
-                PreferenceReader.saveSharedSetting(getBaseContext(), "words", String.valueOf(words));
+                PreferenceReader.saveSharedSetting(getBaseContext(), "WORDS", String.valueOf(words));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -105,7 +99,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Set<String> words) {
-            System.out.println(words);
+            System.out.println("Downloaded: " + words);
         }
     }
 

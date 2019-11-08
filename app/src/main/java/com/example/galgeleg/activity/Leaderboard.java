@@ -13,10 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.galgeleg.R;
 import com.example.galgeleg.util.PreferenceReader;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-
 public class Leaderboard extends AppCompatActivity {
     private String[] names, scores;
     private ListElemAdapter elemAdapter = new ListElemAdapter();
@@ -27,7 +23,6 @@ public class Leaderboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leaderboard_activity);
 
-
         names = PreferenceReader.readSharedSetting(getBaseContext(), "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
         scores = PreferenceReader.readSharedSetting(getBaseContext(), "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
 
@@ -36,34 +31,43 @@ public class Leaderboard extends AppCompatActivity {
         recyclerView.setAdapter(elemAdapter);
     }
 
-    class ListElemAdapter extends RecyclerView.Adapter<ListElemViewholder> {
+    class ListElemAdapter extends RecyclerView.Adapter<ListElemViewHolder> {
         @NonNull
         @Override
-        public ListElemViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public ListElemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View listElementViews = getLayoutInflater().inflate(R.layout.list_elements, parent, false);
-            return new ListElemViewholder(listElementViews);
+            return new ListElemViewHolder(listElementViews);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ListElemViewholder holder, int i) {
+        public void onBindViewHolder(@NonNull ListElemViewHolder holder, int i) {
             if (scores[i].equals("0") || names[i].equals("NO_NAMES")) return;
 
             holder.ranking.setText("" + (i + 1));
             holder.name.setText(names[i]);
             holder.score.setText(scores[i]);
-
         }
 
         @Override
         public int getItemCount() {
-            return scores.length;
+            return scores.length; // avoids repeating the same values when scroll
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
         }
     }
 
-    class ListElemViewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ListElemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView ranking, name, score;
 
-        public ListElemViewholder(View listElementViews) {
+        public ListElemViewHolder(View listElementViews) {
             super(listElementViews);
             ranking = listElementViews.findViewById(R.id.list_elem_ranking);
             name = listElementViews.findViewById(R.id.list_elem_name);
