@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.galgeleg.Logic;
 import com.example.galgeleg.R;
-import com.example.galgeleg.util.PreferenceReader;
+import com.example.galgeleg.util.PreferenceUtil;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -39,7 +39,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         new loadWordsFromDR().execute(); // TODO: uncomment before submission
         applyWordCache(); // TODO: uncomment before submission
 
-        newVisitor = Boolean.valueOf(PreferenceReader.readSharedSetting(this, PREF_NEW_VISITOR, "true"));
+        newVisitor = Boolean.valueOf(PreferenceUtil.readSharedSetting(this, PREF_NEW_VISITOR, "true"));
         if (newVisitor) {
             Intent introIntent = new Intent(this, Onboarding.class);
             introIntent.putExtra(PREF_NEW_VISITOR, newVisitor);
@@ -67,7 +67,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     private void applyWordCache() {
         Logic l = Logic.getInstance();
 
-        String data = PreferenceReader.readSharedSetting(this, "WORDS", "noValues");
+        String data = PreferenceUtil.readSharedSetting(this, "WORDS", "noValues");
         String[] words = data.replaceAll("\\W+"," ").trim().split(" ");
 
         System.out.println("CACHE: " + Arrays.toString(words));
@@ -88,7 +88,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
                 words = l.hentOrdFraDr();
                 l.getWordLibrary().clear();
                 l.getWordLibrary().addAll(words);
-                PreferenceReader.saveSharedSetting(getBaseContext(), "WORDS", String.valueOf(words));
+                PreferenceUtil.saveSharedSetting(getBaseContext(), "WORDS", String.valueOf(words));
 
             } catch (Exception e) {
                 e.printStackTrace();

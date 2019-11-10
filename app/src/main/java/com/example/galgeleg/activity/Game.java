@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.galgeleg.Keyboard;
 import com.example.galgeleg.Logic;
 import com.example.galgeleg.R;
-import com.example.galgeleg.util.PreferenceReader;
+import com.example.galgeleg.util.PreferenceUtil;
 
 import java.util.Arrays;
 
@@ -78,8 +78,8 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void saveScore(int currentScore, String currentName) {
-        String[] names = PreferenceReader.readSharedSetting(this, "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
-        String[] scores = PreferenceReader.readSharedSetting(this, "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
+        String[] names = PreferenceUtil.readSharedSetting(this, "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
+        String[] scores = PreferenceUtil.readSharedSetting(this, "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
 
 
         if (names[0].equals("NO_NAMES")){
@@ -102,8 +102,8 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
         scores[i] = String.valueOf(currentScore);
         names[i] = currentName;
 
-        PreferenceReader.saveSharedSetting(this, "NAMES", Arrays.toString(names));
-        PreferenceReader.saveSharedSetting(this, "SCORES", Arrays.toString(scores));
+        PreferenceUtil.saveSharedSetting(this, "NAMES", Arrays.toString(names));
+        PreferenceUtil.saveSharedSetting(this, "SCORES", Arrays.toString(scores));
     }
 
     public void endGame(boolean won){

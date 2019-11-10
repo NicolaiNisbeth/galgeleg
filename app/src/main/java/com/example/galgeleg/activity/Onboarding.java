@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.galgeleg.R;
 import com.example.galgeleg.adapter.SliderAdapter;
-import com.example.galgeleg.util.PreferenceReader;
+import com.example.galgeleg.util.PreferenceUtil;
 
 
 public class Onboarding extends AppCompatActivity implements View.OnClickListener {
@@ -89,7 +89,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
 
     private void launchHearingTestScreen(){
 
-        PreferenceReader.saveSharedSetting(this, Menu.PREF_NEW_VISITOR, "false");
+        PreferenceUtil.saveSharedSetting(this, Menu.PREF_NEW_VISITOR, "false");
 
         Intent intent = new Intent(this, Menu.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

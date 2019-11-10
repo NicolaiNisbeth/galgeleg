@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.galgeleg.R;
-import com.example.galgeleg.util.PreferenceReader;
+import com.example.galgeleg.util.PreferenceUtil;
 
 public class Leaderboard extends AppCompatActivity {
     private String[] names, scores;
@@ -23,8 +23,8 @@ public class Leaderboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leaderboard_activity);
 
-        names = PreferenceReader.readSharedSetting(getBaseContext(), "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
-        scores = PreferenceReader.readSharedSetting(getBaseContext(), "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
+        names = PreferenceUtil.readSharedSetting(getBaseContext(), "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
+        scores = PreferenceUtil.readSharedSetting(getBaseContext(), "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -9,12 +9,12 @@ import android.content.SharedPreferences;
  * https://www.sundanesepeople.com/creating-onboarding-screen-android-studio/
  */
 
-public class PreferenceReader {
+public class PreferenceUtil {
 
     private static final String PREFERENCES_FILE = "myPref";
     private Context mContext;
 
-    public PreferenceReader(Context context) {
+    public PreferenceUtil(Context context) {
         this.mContext = context;
     }
 

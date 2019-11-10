@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.galgeleg.R;
@@ -17,7 +18,6 @@ import com.example.galgeleg.R;
  */
 
 public class SliderAdapter extends PagerAdapter {
-
     private Context context;
     private LayoutInflater layoutInflater;
 
@@ -75,6 +75,6 @@ public class SliderAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((RelativeLayout)object);
+        container.removeView((ConstraintLayout)object);
     }
 }
