@@ -11,10 +11,8 @@ import android.widget.TextView;
 import com.example.galgeleg.R;
 
 public class GameEnd extends AppCompatActivity implements View.OnClickListener {
-
     private TextView title, outcome, word;
     private Button playAgain, menu;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +22,6 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
         title = findViewById(R.id.gameEndTitle);
         outcome = findViewById(R.id.gameOutcome);
         word = findViewById(R.id.gameWord);
-
         menu = findViewById(R.id.goToMenu);
         playAgain = findViewById(R.id.playAgain);
 
@@ -41,7 +38,6 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
             outcome.setText(won ? "Tries " + tries : "The correct word was: ");
             word.setText(won ? "" : solution);
         }
-
     }
 
     @Override

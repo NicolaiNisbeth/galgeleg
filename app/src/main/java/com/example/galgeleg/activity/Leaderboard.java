@@ -50,7 +50,7 @@ public class Leaderboard extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return scores.length; // avoids repeating the same values when scroll
+            return scores.length;
         }
 
         @Override

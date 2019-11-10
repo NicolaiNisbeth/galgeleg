@@ -33,7 +33,6 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
 
         mSlideViewPager = findViewById(R.id.slideViewPager);
         mDotLayout = findViewById(R.id.dotsLayout);
-
         mNextBtn = findViewById(R.id.nextbtn);
         mSkipBtn = findViewById(R.id.skipbtn);
 
@@ -56,8 +55,6 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         for (int i = 0; i < NUM_OF_DOTS; i++){
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
-
-
             mDots[i].setTextSize(50);
             mDots[i].setTextColor(getResources().getColor(R.color.white));
 
@@ -76,27 +73,23 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
 
         if (v == mNextBtn){
             if (lastPage){
-                launchHearingTestScreen();
+                launchMenu();
             }
             else {
                 mSlideViewPager.setCurrentItem(mCurrentPage + 1);
             }
         }
         else if (v == mSkipBtn){
-            launchHearingTestScreen();
+            launchMenu();
         }
     }
 
-    private void launchHearingTestScreen(){
-
+    private void launchMenu(){
         PreferenceUtil.saveSharedSetting(this, Menu.PREF_NEW_VISITOR, "false");
-
         Intent intent = new Intent(this, Menu.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
-
-
     }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {

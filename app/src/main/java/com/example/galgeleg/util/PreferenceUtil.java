@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
  */
 
 public class PreferenceUtil {
-
     private static final String PREFERENCES_FILE = "myPref";
     private Context mContext;
 

@@ -14,8 +14,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.galgeleg.R;
 
 /**
- * https://www.iconfinder.com/
+ * https://www.sundanesepeople.com/creating-onboarding-screen-android-studio/
  */
+
 
 public class SliderAdapter extends PagerAdapter {
     private Context context;
@@ -24,7 +25,7 @@ public class SliderAdapter extends PagerAdapter {
     private int[] slide_images = {
             R.drawable.onboarding1,
             R.drawable.onboarding2,
-            R.drawable.onboarding1
+            R.drawable.onboarding3
     };
 
     private String[] slide_headings = {

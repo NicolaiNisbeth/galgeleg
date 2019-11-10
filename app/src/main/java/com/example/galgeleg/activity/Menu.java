@@ -22,7 +22,6 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     public static final String PREF_NEW_VISITOR = "new_visitor";
     private boolean newVisitor;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +35,8 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         leaderboardBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
 
-        new loadWordsFromDR().execute(); // TODO: uncomment before submission
-        applyWordCache(); // TODO: uncomment before submission
+        new loadWordsFromDR().execute(); // start async call to DR
+        applyWordCache();
 
         newVisitor = Boolean.valueOf(PreferenceUtil.readSharedSetting(this, PREF_NEW_VISITOR, "true"));
         if (newVisitor) {
@@ -49,19 +48,12 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-
-        // TODO: check cache and load words from dr async
-        if (v == startGameBtn){
+        if (v == startGameBtn)
             startActivity(new Intent(this, Game.class));
-        }
-        else if (v == leaderboardBtn){
+        else if (v == leaderboardBtn)
             startActivity(new Intent(this, Leaderboard.class));
-
-        }
-        else if (v == helpBtn){
+        else if (v == helpBtn)
             startActivity(new Intent(this, Help.class));
-        }
     }
 
     private void applyWordCache() {
@@ -102,5 +94,4 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             System.out.println("Downloaded: " + words);
         }
     }
-
 }
