@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FEFEFE</color>
+    <color name="colorTransparentWhite">#cccccc</color>
 
     <!--Color your keyboard-->
     <color name="keyboard_background_color">#008577</color>
