@@ -34,6 +34,7 @@ public class Logic {
         wordLibrary.add("skovsnegl");
         wordLibrary.add("solsort");
         wordLibrary.add("nitten");
+        restart();
     }
 
     public static Logic getInstance(){
