@@ -64,8 +64,10 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
 
         System.out.println("CACHE: " + Arrays.toString(words));
 
-        l.getWordLibrary().clear();
-        l.getWordLibrary().addAll(new HashSet<>(Arrays.asList(words)));
+        if (!data.equals("noValues")){
+            l.getWordLibrary().addAll(new HashSet<>(Arrays.asList(words)));
+            l.getWordLibrary().clear();
+        }
         l.restart();
     }
 
