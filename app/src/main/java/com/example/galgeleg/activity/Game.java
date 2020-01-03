@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.galgeleg.Keyboard;
 import com.example.galgeleg.Logic;
@@ -15,13 +17,13 @@ import com.example.galgeleg.R;
 import com.example.galgeleg.util.PreferenceUtil;
 
 import java.util.Arrays;
+import java.util.Observable;
 
-public class Game extends AppCompatActivity implements View.OnClickListener {
+public class Game extends AppCompatActivity implements View.OnClickListener, androidx.lifecycle.Observer<Logic> {
     private ImageView imageView;
     private Keyboard keyboard;
     private TextView hiddenWord;
     private TextView lives;
-    private Logic logic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,13 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
         lives = findViewById(R.id.lives);
         keyboard = findViewById(R.id.keyboard);
 
-        logic = Logic.getInstance();
-
-        updateUI();
+        Menu.liveData.observe(this, this);
     }
 
-    private void updateUI(){
-        lives.setText("Lives " + logic.getLives());
+    @Override
+    public void onChanged(Logic logic) {
         hiddenWord.setText(logic.getVisibleSentence());
+        lives.setText("Lives " + logic.getLives());
         setHangingMan(logic.getLives());
 
         for (String letter : logic.getUsedLetters()) crossOutLetter(keyboard.getLetterID(letter));
@@ -49,6 +50,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         crossOutLetter(view.getId());
+        Logic logic = Menu.liveData.getValue();
 
         hiddenWord.setText(logic.getVisibleSentence());
         lives.setText("Lives " + logic.getLives());
@@ -62,24 +64,27 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
             saveScore(score, "Player1");                                // TODO: only for illustration purposes!
             endGame(false);
         }
-        else
+        else {
             setHangingMan(logic.getLives());
+        }
     }
 
     public void endGame(boolean won){
+
         Intent intent = new Intent(this, GameEnd.class);
-        intent.putExtra("USED_LETTERS", logic.getUsedLetters());
-        intent.putExtra("SOLUTION", logic.getSolution().get(0));
+        intent.putExtra("USED_LETTERS", Menu.liveData.getValue().getUsedLetters());
+        intent.putExtra("SOLUTION", Menu.liveData.getValue().getSolution().get(0));
         intent.putExtra("STATUS", won);
-        logic.restart();
+
         finish();
         startActivity(intent);
+        Menu.liveData.getValue().restart();
     }
 
 
     public void crossOutLetter(int id) {
         String letter = keyboard.getLetter(id);
-        logic.guessedLetter(letter);
+        Menu.liveData.getValue().guessedLetter(letter);
 
         Button b = findViewById(id);
         b.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter));
@@ -120,8 +125,10 @@ public class Game extends AppCompatActivity implements View.OnClickListener {
         }
 
         // insert current score on idx i
-        scores[i] = String.valueOf(currentScore);
-        names[i] = currentName;
+        if (i < scores.length){
+            scores[i] = String.valueOf(currentScore);
+            names[i] = currentName;
+        }
 
         PreferenceUtil.saveSharedSetting(this, "NAMES", Arrays.toString(names));
         PreferenceUtil.saveSharedSetting(this, "SCORES", Arrays.toString(scores));

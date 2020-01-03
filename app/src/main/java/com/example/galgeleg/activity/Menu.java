@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.galgeleg.Logic;
 import com.example.galgeleg.R;
@@ -22,6 +23,8 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     public static final String PREF_NEW_VISITOR = "new_visitor";
     private boolean newVisitor;
 
+    public static final MutableLiveData<Logic> liveData = new MutableLiveData<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,8 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         startGameBtn.setOnClickListener(this);
         leaderboardBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
+
+        liveData.setValue(Logic.getInstance());
 
         new loadWordsFromDR().execute(); // start async call to DR
         applyWordCache();
@@ -57,37 +62,35 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void applyWordCache() {
-        Logic l = Logic.getInstance();
-
         String data = PreferenceUtil.readSharedSetting(this, "WORDS", "noValues");
         String[] words = data.replaceAll("\\W+"," ").trim().split(" ");
 
         System.out.println("CACHE: " + Arrays.toString(words));
 
         if (!data.equals("noValues")){
-            l.getWordLibrary().clear();
-            l.getWordLibrary().addAll(new HashSet<>(Arrays.asList(words)));
-            l.restart();
+            liveData.getValue().getWordLibrary().clear();
+            liveData.getValue().getWordLibrary().addAll(new HashSet<>(Arrays.asList(words)));
+            liveData.getValue().restart();
         }
     }
-
 
     private class loadWordsFromDR extends AsyncTask<URL, Integer, Set<String>> {
 
         protected Set<String> doInBackground(URL... urls) {
-            Logic l = Logic.getInstance();
+            Logic logic = liveData.getValue();
             HashSet<String> words = null;
 
             try {
-                words = l.hentOrdFraDr();
-                l.getWordLibrary().clear();
-                l.getWordLibrary().addAll(words);
+                words = logic.hentOrdFraDr();
+                logic.getWordLibrary().clear();
+                logic.getWordLibrary().addAll(words);
                 PreferenceUtil.saveSharedSetting(getBaseContext(), "WORDS", String.valueOf(words));
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
+            liveData.postValue(logic);
             return words;
         }
 
