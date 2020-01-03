@@ -52,10 +52,10 @@ public class Logic {
         gameIsWon = false;
         gameIsLost = false;
         previousGuessWasCorrect = false;
-        opdateVisibleSentence();
+        updateVisibleSentence();
     }
 
-    private void opdateVisibleSentence() {
+    private void updateVisibleSentence() {
         visibleSentence.setLength(0);
         gameIsWon = true;
 
@@ -63,9 +63,11 @@ public class Logic {
         for (int i = 0; i < solution.size(); i++) {
             for (int j = 0; j < solution.get(i).length(); j++) {
                 String letter = solution.get(i).substring(j, j + 1);
-                if (usedLetters.contains(letter)) visibleSentence.append(letter);
+                if (usedLetters.contains(letter)){
+                    visibleSentence.append(letter);
+                }
                 else {
-                    visibleSentence.append("_");
+                    visibleSentence.append(" _ ");
                     gameIsWon = false;
                 }
             }
@@ -93,7 +95,7 @@ public class Logic {
             if (--lives <= 0) gameIsLost = true;
         }
 
-        opdateVisibleSentence();
+        updateVisibleSentence();
     }
 
     private boolean solutionHas(String letter) {
