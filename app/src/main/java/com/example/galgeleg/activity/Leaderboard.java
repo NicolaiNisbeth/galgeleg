@@ -35,7 +35,7 @@ public class Leaderboard extends AppCompatActivity {
         @NonNull
         @Override
         public ListElemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View listElementViews = getLayoutInflater().inflate(R.layout.list_elements, parent, false);
+            View listElementViews = getLayoutInflater().inflate(R.layout.list_scores, parent, false);
             return new ListElemViewHolder(listElementViews);
         }
 

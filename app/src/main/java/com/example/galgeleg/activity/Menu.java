@@ -54,7 +54,7 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == startGameBtn)
-            startActivity(new Intent(this, Game.class));
+            startActivity(new Intent(this, PlayerSetup.class));
         else if (v == leaderboardBtn)
             startActivity(new Intent(this, Leaderboard.class));
         else if (v == helpBtn)

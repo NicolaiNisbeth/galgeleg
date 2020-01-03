@@ -43,14 +43,11 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == menu){
-            Intent i = new Intent(this, Menu.class);
             finish();
-            startActivity(i);
         }
         else if (v == playAgain){
-            Intent i = new Intent(this, Game.class);
             finish();
-            startActivity(i);
+            startActivity(new Intent(this, Game.class));
         }
     }
 }
