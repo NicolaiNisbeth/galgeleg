@@ -95,7 +95,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         PlayerSetup.liveData.getValue().guessedLetter(letter);
 
         Button b = findViewById(id);
-        b.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter));
+        b.setBackground(getResources().getDrawable(R.drawable.btn_usedletter));
     }
 
 
