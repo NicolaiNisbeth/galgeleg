@@ -26,6 +26,7 @@ public class Guessor extends Fragment {
 
     private OnFragmentInteractionListener listener;
     private TextView editUsername;
+    private String usernameInput;
 
     public Guessor() {
         // Required empty public constructor
@@ -60,20 +61,17 @@ public class Guessor extends Fragment {
 
     private TextWatcher playerSetupWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String usernameInput = editUsername.getText().toString().trim();
-            listener.onGuessorInteraction(usernameInput.isEmpty());
+            usernameInput = editUsername.getText().toString().trim();
+            listener.playBtnActivator(usernameInput.isEmpty());
+            listener.getUsernameFromFrag(usernameInput);
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
-
-        }
+        public void afterTextChanged(Editable s) { }
     };
 
 
@@ -107,6 +105,7 @@ public class Guessor extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onGuessorInteraction(boolean uri);
+        void playBtnActivator(boolean uri);
+        void getUsernameFromFrag(String username);
     }
 }

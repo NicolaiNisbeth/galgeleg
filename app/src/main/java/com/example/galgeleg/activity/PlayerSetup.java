@@ -1,4 +1,5 @@
 package com.example.galgeleg.activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class PlayerSetup extends AppCompatActivity implements Guessor.OnFragment
     private final String TAB_2_TITLE = "Selector";
 
     private Button playBtn;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +55,28 @@ public class PlayerSetup extends AppCompatActivity implements Guessor.OnFragment
     @Override
     public void onClick(View v) {
         if (v == playBtn){
-            // TODO: pass username for leaderboard
-            //finish();
-            //startActivity(new Intent(this, Game.class));
+            finish();
+            Intent i = new Intent(this, Game.class);
+            i.putExtra("USERNAME", username);
+            startActivity(i);
         }
     }
 
     @Override
-    public void onGuessorInteraction(boolean isUsernameEmpty) {
+    public void playBtnActivator(boolean isUsernameEmpty) {
         playBtn.setEnabled(!isUsernameEmpty);
-        if (!isUsernameEmpty) playBtn.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        if (!isUsernameEmpty){
+            playBtn.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            playBtn.setOnClickListener(this);
+        }
         else playBtn.setBackgroundResource(android.R.drawable.btn_default);
     }
+
+    @Override
+    public void getUsernameFromFrag(String username) {
+        this.username = username;
+    }
+
 
     @Override
     public void onSelectorInteraction(Uri uri) {

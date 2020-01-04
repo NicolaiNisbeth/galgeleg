@@ -24,6 +24,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     private Keyboard keyboard;
     private TextView hiddenWord;
     private TextView lives;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,9 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         keyboard = findViewById(R.id.keyboard);
 
         Menu.liveData.observe(this, this);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) username = extras.getString("USERNAME");
     }
 
     @Override
@@ -57,11 +61,11 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
 
         int score = (logic.getLives() + 1) * logic.getSolution().get(0).length() ; // TODO: + 1 for leaderboard illustration purposes!
         if (logic.gameIsWon()) {
-            saveScore(score, "Player1");
+            saveScore(score, username);
             endGame(true);
         }
         else if (logic.gameIsLost()){
-            saveScore(score, "Player1");                                // TODO: only for illustration purposes!
+            saveScore(score, username);                                // TODO: only for illustration purposes!
             endGame(false);
         }
         else {
