@@ -39,7 +39,11 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         Menu.liveData.observe(this, this);
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null) username = extras.getString("USERNAME");
+        if (extras != null) {
+            username = extras.getString("USERNAME");
+            Menu.liveData.getValue().setSolution(extras.getString("SELECTED_WORD", Menu.liveData.getValue().addSolution()));
+            Menu.liveData.getValue().updateVisibleSentence(); // TODO: to be refactored - problem with screen rotation
+        }
     }
 
     @Override
@@ -59,7 +63,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         hiddenWord.setText(logic.getVisibleSentence());
         lives.setText("Lives " + logic.getLives());
 
-        int score = (logic.getLives() + 1) * logic.getSolution().get(0).length() ; // TODO: + 1 for leaderboard illustration purposes!
+        int score = (logic.getLives() + 1) * logic.getSolution().length() ; // TODO: + 1 for leaderboard illustration purposes!
         if (logic.gameIsWon()) {
             saveScore(score, username);
             endGame(true);
@@ -77,7 +81,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
 
         Intent intent = new Intent(this, GameEnd.class);
         intent.putExtra("USED_LETTERS", Menu.liveData.getValue().getUsedLetters());
-        intent.putExtra("SOLUTION", Menu.liveData.getValue().getSolution().get(0));
+        intent.putExtra("SOLUTION", Menu.liveData.getValue().getSolution());
         intent.putExtra("STATUS", won);
 
         finish();

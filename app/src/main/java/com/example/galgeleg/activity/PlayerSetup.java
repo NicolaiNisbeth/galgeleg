@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -19,7 +20,7 @@ public class PlayerSetup extends AppCompatActivity implements Guessor.OnFragment
     private final String TAB_2_TITLE = "Selector";
 
     private Button playBtn;
-    private String username;
+    private String username, selectedWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class PlayerSetup extends AppCompatActivity implements Guessor.OnFragment
         final ViewPager viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(new PlayerSetupAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -58,6 +60,7 @@ public class PlayerSetup extends AppCompatActivity implements Guessor.OnFragment
             finish();
             Intent i = new Intent(this, Game.class);
             i.putExtra("USERNAME", username);
+            i.putExtra("SELECTED_WORD", selectedWord);
             startActivity(i);
         }
     }
@@ -77,10 +80,10 @@ public class PlayerSetup extends AppCompatActivity implements Guessor.OnFragment
         this.username = username;
     }
 
-
     @Override
-    public void onSelectorInteraction(Uri uri) {
-
+    public void recyclerViewListClicked(View v, int position){
+        TextView textView = v.findViewById(R.id.list_elem_word);
+        selectedWord = textView.getText().toString();
     }
 }
 

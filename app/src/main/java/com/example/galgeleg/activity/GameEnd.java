@@ -47,7 +47,8 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
         }
         else if (v == playAgain){
             finish();
-            startActivity(new Intent(this, Game.class));
+            startActivity(new Intent(this, PlayerSetup.class));
+            // TODO: send username to playersetup in order to enable fast setup
         }
     }
 }

@@ -17,10 +17,10 @@ public class Logic {
     private static Logic instance;
 
     private HashSet<String> wordLibrary;
-    private List<String> solution;
+    private String solution;
     private ArrayList<String> usedLetters;
     private StringBuilder visibleSentence;
-    private int lives = 6, difficulty = 1, wrongGuess = 0;
+    private int lives = 6, wrongGuess = 0;
     private boolean gameIsWon, gameIsLost, previousGuessWasCorrect;
 
     private Logic(){
@@ -44,7 +44,7 @@ public class Logic {
     }
 
     public void restart(){
-        solution = addSolution(difficulty);
+        //solution = addSolution();
         usedLetters = new ArrayList<>();
         visibleSentence = new StringBuilder();
         lives = 6;
@@ -55,32 +55,28 @@ public class Logic {
         updateVisibleSentence();
     }
 
-    private void updateVisibleSentence() {
+    public void updateVisibleSentence() {
         visibleSentence.setLength(0);
         gameIsWon = true;
 
+        if (solution == null) return;
 
-        for (int i = 0; i < solution.size(); i++) {
-            for (int j = 0; j < solution.get(i).length(); j++) {
-                String letter = solution.get(i).substring(j, j + 1);
-                if (usedLetters.contains(letter)){
-                    visibleSentence.append(letter);
-                }
-                else {
-                    visibleSentence.append(" _ ");
-                    gameIsWon = false;
-                }
+        for (int j = 0; j < solution.length(); j++) {
+            String letter = solution.substring(j, j + 1);
+            if (usedLetters.contains(letter)){
+                visibleSentence.append(letter);
+            }
+            else {
+                visibleSentence.append(" _ ");
+                gameIsWon = false;
             }
         }
+
     }
 
-    private List<String> addSolution(int difficulty) {
-        ArrayList<String> solution = new ArrayList<>();
-        for (int i = 0; i < difficulty; i++) {
-            int newWordInx = new Random().nextInt(wordLibrary.size());
-            solution.add((String) wordLibrary.toArray()[newWordInx]);
-        }
-        return solution;
+    public String addSolution() {
+        int newWordInx = new Random().nextInt(wordLibrary.size());
+        return wordLibrary.toArray()[newWordInx].toString();
     }
 
     public void guessedLetter(String letter) {
@@ -99,7 +95,7 @@ public class Logic {
     }
 
     private boolean solutionHas(String letter) {
-        return solution.get(0).contains(letter);
+        return solution.contains(letter);
     }
 
 
@@ -187,7 +183,6 @@ public class Logic {
                 ", lives=" + lives +
                 ", gameIsWon=" + gameIsWon +
                 ", gameIsLost=" + gameIsLost +
-                ", difficulty=" + difficulty +
                 '}';
     }
 
@@ -207,11 +202,11 @@ public class Logic {
         this.wordLibrary = wordLibrary;
     }
 
-    public List<String> getSolution() {
+    public String getSolution() {
         return solution;
     }
 
-    public void setSolution(List<String> solution) {
+    public void setSolution(String solution) {
         this.solution = solution;
     }
 
@@ -253,14 +248,6 @@ public class Logic {
 
     public void setGameIsLost(boolean gameIsLost) {
         this.gameIsLost = gameIsLost;
-    }
-
-    public int getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
     }
 
     public int getWrongGuess() {

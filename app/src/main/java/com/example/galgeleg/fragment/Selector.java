@@ -98,7 +98,7 @@ public class Selector extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onSelectorInteraction(Uri uri);
+        void recyclerViewListClicked(View v, int position);
     }
 
     class ListElemAdapter extends RecyclerView.Adapter<Selector.ListElemViewHolder> {
@@ -125,8 +125,8 @@ public class Selector extends Fragment {
         }
 
     }
-    // https://stackoverflow.com/questions/27194044/how-to-properly-highlight-selected-item-on-recyclerview
 
+    // https://stackoverflow.com/questions/27194044/how-to-properly-highlight-selected-item-on-recyclerview
     class ListElemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView word;
 
@@ -138,13 +138,13 @@ public class Selector extends Fragment {
 
         @Override
         public void onClick(View v) {
-            // Below line is just like a safety check, because sometimes holder could be null,
-            // in that case, getAdapterPosition() will return RecyclerView.NO_POSITION
             if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
             elemAdapter.notifyItemChanged(selectedPosition);
             selectedPosition = getAdapterPosition();
             elemAdapter.notifyItemChanged(selectedPosition);
+            listener.recyclerViewListClicked(v, this.getLayoutPosition());
+
         }
     }
 }
