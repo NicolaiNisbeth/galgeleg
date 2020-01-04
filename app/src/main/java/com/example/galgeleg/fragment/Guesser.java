@@ -2,16 +2,13 @@ package com.example.galgeleg.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.galgeleg.R;
 
 /**
@@ -47,7 +44,6 @@ public class Guesser extends Fragment {
 
         editUsername = v.findViewById(R.id.editUsername);
         editUsername.addTextChangedListener(playerSetupWatcher);
-
         return v;
     }
 
