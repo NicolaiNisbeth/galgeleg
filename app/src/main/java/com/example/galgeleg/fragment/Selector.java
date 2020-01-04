@@ -28,14 +28,6 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Selector.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Selector#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Selector extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener listener;
     private String[] words;
@@ -71,6 +63,7 @@ public class Selector extends Fragment implements View.OnClickListener {
 
         progressBar = v.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
+
         // When reading from wordLibrary in Logic, the order of words differ from the order in cache
         // therefore to maintain the same order I have to read from Preferences.
         String data = PreferenceUtil.readSharedSetting(getContext(), "WORDS", "noValues");
@@ -78,7 +71,6 @@ public class Selector extends Fragment implements View.OnClickListener {
 
         if (data.equals("noValues"))
             words = PlayerSetup.liveData.getValue().getWordLibrary().toArray(new String[0]);
-
 
         return v;
     }
@@ -105,16 +97,6 @@ public class Selector extends Fragment implements View.OnClickListener {
         floatingActionButton.setVisibility(View.INVISIBLE);
         new loadWordsFromDR().execute(); // start async call to DR
         progressBar.setVisibility(View.VISIBLE);
-        /*
-        // TODO spinning in the background
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.GONE);
-            }
-        }, 6000);
-
-         */
     }
 
     /**
@@ -132,7 +114,6 @@ public class Selector extends Fragment implements View.OnClickListener {
     }
 
     class ListElemAdapter extends RecyclerView.Adapter<Selector.ListElemViewHolder> {
-
 
         @NonNull
         @Override
@@ -153,7 +134,6 @@ public class Selector extends Fragment implements View.OnClickListener {
         public int getItemCount() {
             return words.length;
         }
-
     }
 
     // https://stackoverflow.com/questions/27194044/how-to-properly-highlight-selected-item-on-recyclerview
@@ -188,7 +168,6 @@ public class Selector extends Fragment implements View.OnClickListener {
                 logic.getWordLibrary().clear();
                 logic.getWordLibrary().addAll(wordsFromDR);
                 PreferenceUtil.saveSharedSetting(getContext(), "WORDS", String.valueOf(wordsFromDR));
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -197,19 +176,19 @@ public class Selector extends Fragment implements View.OnClickListener {
             return wordsFromDR;
         }
 
-        // TODO: Error handling in case of no connection
-
         @Override
         protected void onPostExecute(Set<String> words) {
             System.out.println("Downloaded: " + words);
+
             if (words != null){
                 Selector.this.words = words.toArray(new String[0]);
                 elemAdapter.notifyDataSetChanged();
-                Toast.makeText(getContext(), "Words are downloaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "DR words are downloaded", Toast.LENGTH_SHORT).show();
             }
             else {
                 Toast.makeText(getContext(), "Unable to fetch from DR!", Toast.LENGTH_LONG).show();
             }
+
             floatingActionButton.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }

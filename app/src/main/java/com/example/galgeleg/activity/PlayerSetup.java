@@ -21,20 +21,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragmentInteractionListener, Selector.OnFragmentInteractionListener, View.OnClickListener {
-
-    private final String TAB_1_TITLE = "Guesser";
-    private final String TAB_2_TITLE = "Selector";
-
-    private Button playBtn;
-    private String username, selectedWord;
-
     public static final MutableLiveData<Logic> liveData = new MutableLiveData<>();
+    private final String TAB_1_TITLE = "GUESSER", TAB_2_TITLE = "SELECTOR";
+    private String username, selectedWord;
+    private Button playBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.playerselection_activity);
-
         playBtn = findViewById(R.id.playBtn);
 
         liveData.setValue(Logic.getInstance());
@@ -49,7 +44,6 @@ public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragment
         viewPager.setAdapter(new PlayerSetupAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -63,7 +57,6 @@ public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragment
             public void onTabReselected(TabLayout.Tab tab) { }
         });
     }
-
 
     @Override
     public void onClick(View v) {

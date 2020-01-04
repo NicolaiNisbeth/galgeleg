@@ -19,8 +19,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
-    private Button startGameBtn, leaderboardBtn, helpBtn;
     public static final String PREF_NEW_VISITOR = "NEW_VISITOR";
+    private Button startGameBtn, leaderboardBtn, helpBtn;
     private boolean newVisitor;
 
     @Override

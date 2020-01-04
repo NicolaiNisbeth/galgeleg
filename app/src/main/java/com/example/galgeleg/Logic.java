@@ -39,7 +39,6 @@ public class Logic {
 
     public static Logic getInstance(){
         if (instance == null) instance = new Logic();
-
         return instance;
     }
 
@@ -63,15 +62,12 @@ public class Logic {
 
         for (int j = 0; j < solution.length(); j++) {
             String letter = solution.substring(j, j + 1);
-            if (usedLetters.contains(letter)){
-                visibleSentence.append(letter);
-            }
+            if (usedLetters.contains(letter)) visibleSentence.append(letter);
             else {
                 visibleSentence.append(" _ ");
                 gameIsWon = false;
             }
         }
-
     }
 
     public String addSolution() {
@@ -97,7 +93,6 @@ public class Logic {
     private boolean solutionHas(String letter) {
         return solution.contains(letter);
     }
-
 
     public String printArray(List<String> list) {
         StringBuilder out = new StringBuilder();

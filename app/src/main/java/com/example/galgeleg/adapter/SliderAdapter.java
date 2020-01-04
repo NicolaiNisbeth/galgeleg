@@ -17,7 +17,6 @@ import com.example.galgeleg.R;
  * https://www.sundanesepeople.com/creating-onboarding-screen-android-studio/
  */
 
-
 public class SliderAdapter extends PagerAdapter {
     private Context context;
     private LayoutInflater layoutInflater;

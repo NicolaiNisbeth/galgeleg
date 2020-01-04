@@ -9,10 +9,7 @@ import com.example.galgeleg.fragment.Guesser;
 import com.example.galgeleg.fragment.Selector;
 
 public class PlayerSetupAdapter extends FragmentStatePagerAdapter {
-
     private int numOfTabs;
-
-
 
     public PlayerSetupAdapter(FragmentManager fm, int NumberOfTabs) {
         super(fm);

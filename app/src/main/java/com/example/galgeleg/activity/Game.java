@@ -26,7 +26,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     private TextView lives;
     private String username;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

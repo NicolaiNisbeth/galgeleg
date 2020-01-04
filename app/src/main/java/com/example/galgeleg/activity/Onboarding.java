@@ -17,14 +17,13 @@ import com.example.galgeleg.util.PreferenceUtil;
 
 
 public class Onboarding extends AppCompatActivity implements View.OnClickListener {
-
+    private SliderAdapter sliderAdapter;
+    private final int NUM_OF_DOTS = 3;
+    private Button mNextBtn, mSkipBtn;
     private ViewPager mSlideViewPager;
     private LinearLayout mDotLayout;
-    private SliderAdapter sliderAdapter;
     private TextView[] mDots;
-    private Button mNextBtn, mSkipBtn;
     private int mCurrentPage;
-    private final int NUM_OF_DOTS = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +56,11 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
             mDots[i].setText(Html.fromHtml("&#8226;"));
             mDots[i].setTextSize(50);
             mDots[i].setTextColor(getResources().getColor(R.color.white));
-
             mDotLayout.addView(mDots[i]);
         }
 
-        if (mDots.length > 0){
-            mDots[position].setTextColor(getResources().getColor(R.color.colorAccent));
-        }
+        if (mDots.length > 0) mDots[position].setTextColor(getResources().getColor(R.color.colorAccent));
+
     }
 
 
@@ -72,16 +69,11 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         boolean lastPage = mCurrentPage == mDots.length-1;
 
         if (v == mNextBtn){
-            if (lastPage){
-                launchMenu();
-            }
-            else {
-                mSlideViewPager.setCurrentItem(mCurrentPage + 1);
-            }
+            if (lastPage) launchMenu();
+            else mSlideViewPager.setCurrentItem(mCurrentPage + 1);
         }
-        else if (v == mSkipBtn){
+        else if (v == mSkipBtn)
             launchMenu();
-        }
     }
 
     private void launchMenu(){
