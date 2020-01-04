@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.galgeleg.fragment.Guessor;
+import com.example.galgeleg.fragment.Guesser;
 import com.example.galgeleg.fragment.Selector;
 
 public class PlayerSetupAdapter extends FragmentStatePagerAdapter {
@@ -21,7 +21,7 @@ public class PlayerSetupAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch(position) {
             case 0:
-                return Guessor.newInstance();
+                return Guesser.newInstance();
             case 1:
                 return Selector.newInstance();
             default:

@@ -1,6 +1,5 @@
 package com.example.galgeleg.activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,13 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.example.galgeleg.R;
 import com.example.galgeleg.adapter.PlayerSetupAdapter;
-import com.example.galgeleg.fragment.Guessor;
+import com.example.galgeleg.fragment.Guesser;
 import com.example.galgeleg.fragment.Selector;
 import com.google.android.material.tabs.TabLayout;
 
-public class PlayerSetup extends AppCompatActivity implements Guessor.OnFragmentInteractionListener, Selector.OnFragmentInteractionListener, View.OnClickListener {
+public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragmentInteractionListener, Selector.OnFragmentInteractionListener, View.OnClickListener {
 
-    private final String TAB_1_TITLE = "Guessor";
+    private final String TAB_1_TITLE = "Guesser";
     private final String TAB_2_TITLE = "Selector";
 
     private Button playBtn;

@@ -17,18 +17,18 @@ import com.example.galgeleg.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Guessor.OnFragmentInteractionListener} interface
+ * {@link Guesser.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Guessor#newInstance} factory method to
+ * Use the {@link Guesser#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Guessor extends Fragment {
+public class Guesser extends Fragment {
 
     private OnFragmentInteractionListener listener;
     private TextView editUsername;
     private String usernameInput;
 
-    public Guessor() {
+    public Guesser() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class Guessor extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment Guessor.
+     * @return A new instance of fragment Guesser.
      */
     // TODO: Rename and change types and number of parameters
-    public static Guessor newInstance() {
-        return new Guessor();
+    public static Guesser newInstance() {
+        return new Guesser();
     }
 
     @Override

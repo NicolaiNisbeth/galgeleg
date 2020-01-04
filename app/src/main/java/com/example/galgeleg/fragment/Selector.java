@@ -20,6 +20,8 @@ import com.example.galgeleg.Logic;
 import com.example.galgeleg.R;
 import com.example.galgeleg.activity.Leaderboard;
 import com.example.galgeleg.activity.Menu;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +31,7 @@ import com.example.galgeleg.activity.Menu;
  * Use the {@link Selector#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Selector extends Fragment {
+public class Selector extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener listener;
     private String[] words;
     private RecyclerView recyclerView;
@@ -63,6 +65,8 @@ public class Selector extends Fragment {
         recyclerView = v.findViewById(R.id.wordRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
         recyclerView.setAdapter(elemAdapter);
+        FloatingActionButton floatingActionButton = v.findViewById(R.id.floating_action_button);
+        floatingActionButton.setOnClickListener(this);
 
         words = Menu.liveData.getValue().getWordLibrary().toArray(new String[0]);
         return v;
@@ -85,6 +89,12 @@ public class Selector extends Fragment {
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Snackbar.make(v, "Here's a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
     }
 
     /**
