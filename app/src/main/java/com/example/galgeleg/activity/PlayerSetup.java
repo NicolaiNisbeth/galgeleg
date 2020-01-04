@@ -6,12 +6,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.viewpager.widget.ViewPager;
+
+import com.example.galgeleg.Logic;
 import com.example.galgeleg.R;
 import com.example.galgeleg.adapter.PlayerSetupAdapter;
 import com.example.galgeleg.fragment.Guesser;
 import com.example.galgeleg.fragment.Selector;
+import com.example.galgeleg.util.PreferenceUtil;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragmentInteractionListener, Selector.OnFragmentInteractionListener, View.OnClickListener {
 
@@ -21,12 +28,17 @@ public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragment
     private Button playBtn;
     private String username, selectedWord;
 
+    public static final MutableLiveData<Logic> liveData = new MutableLiveData<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.playerselection_activity);
 
         playBtn = findViewById(R.id.playBtn);
+
+        liveData.setValue(Logic.getInstance());
+        applyWordCache();
 
         TabLayout tabLayout = findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText(TAB_1_TITLE));
@@ -83,6 +95,19 @@ public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragment
     public void recyclerViewListClicked(View v, int position){
         TextView textView = v.findViewById(R.id.list_elem_word);
         selectedWord = textView.getText().toString();
+    }
+
+    private void applyWordCache() {
+        String data = PreferenceUtil.readSharedSetting(getBaseContext(), "WORDS", "noValues");
+        String[] words = data.replaceAll("\\W+"," ").trim().split(" ");
+
+        System.out.println("CACHE: " + Arrays.toString(words));
+
+        if (!data.equals("noValues")){
+            liveData.getValue().getWordLibrary().clear();
+            liveData.getValue().getWordLibrary().addAll(Arrays.asList(words));
+            liveData.getValue().restart();
+        }
     }
 }
 

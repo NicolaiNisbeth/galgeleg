@@ -20,10 +20,8 @@ import java.util.Set;
 
 public class Menu extends AppCompatActivity implements View.OnClickListener {
     private Button startGameBtn, leaderboardBtn, helpBtn;
-    public static final String PREF_NEW_VISITOR = "new_visitor";
+    public static final String PREF_NEW_VISITOR = "NEW_VISITOR";
     private boolean newVisitor;
-
-    public static final MutableLiveData<Logic> liveData = new MutableLiveData<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +36,6 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
         leaderboardBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
 
-        liveData.setValue(Logic.getInstance());
-
-        new loadWordsFromDR().execute(); // start async call to DR
-        applyWordCache();
 
         newVisitor = Boolean.valueOf(PreferenceUtil.readSharedSetting(this, PREF_NEW_VISITOR, "true"));
         if (newVisitor) {
@@ -59,44 +53,5 @@ public class Menu extends AppCompatActivity implements View.OnClickListener {
             startActivity(new Intent(this, Leaderboard.class));
         else if (v == helpBtn)
             startActivity(new Intent(this, Help.class));
-    }
-
-    private void applyWordCache() {
-        String data = PreferenceUtil.readSharedSetting(this, "WORDS", "noValues");
-        String[] words = data.replaceAll("\\W+"," ").trim().split(" ");
-
-        System.out.println("CACHE: " + Arrays.toString(words));
-
-        if (!data.equals("noValues")){
-            liveData.getValue().getWordLibrary().clear();
-            liveData.getValue().getWordLibrary().addAll(new HashSet<>(Arrays.asList(words)));
-            liveData.getValue().restart();
-        }
-    }
-
-    private class loadWordsFromDR extends AsyncTask<URL, Integer, Set<String>> {
-
-        protected Set<String> doInBackground(URL... urls) {
-            Logic logic = liveData.getValue();
-            HashSet<String> words = null;
-
-            try {
-                words = logic.hentOrdFraDr();
-                logic.getWordLibrary().clear();
-                logic.getWordLibrary().addAll(words);
-                PreferenceUtil.saveSharedSetting(getBaseContext(), "WORDS", String.valueOf(words));
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            liveData.postValue(logic);
-            return words;
-        }
-
-        @Override
-        protected void onPostExecute(Set<String> words) {
-            System.out.println("Downloaded: " + words);
-        }
     }
 }

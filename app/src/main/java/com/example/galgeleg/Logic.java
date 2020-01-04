@@ -16,7 +16,7 @@ import java.util.Set;
 public class Logic {
     private static Logic instance;
 
-    private HashSet<String> wordLibrary;
+    private Set<String> wordLibrary;
     private String solution;
     private ArrayList<String> usedLetters;
     private StringBuilder visibleSentence;
@@ -123,7 +123,7 @@ public class Logic {
      * Hent ord fra DRs forside (https://dr.dk)
      * @return
      */
-    public HashSet<String> hentOrdFraDr() throws Exception {
+    public Set<String> hentOrdFraDr() throws Exception {
         String data = hentUrl("https://dr.dk");
 
         data = data.substring(data.indexOf("<body")). // fjern headere

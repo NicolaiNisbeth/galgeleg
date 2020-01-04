@@ -26,6 +26,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     private TextView lives;
     private String username;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +37,13 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         lives = findViewById(R.id.lives);
         keyboard = findViewById(R.id.keyboard);
 
-        Menu.liveData.observe(this, this);
+        PlayerSetup.liveData.observe(this, this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             username = extras.getString("USERNAME");
-            Menu.liveData.getValue().setSolution(extras.getString("SELECTED_WORD", Menu.liveData.getValue().addSolution()));
-            Menu.liveData.getValue().updateVisibleSentence(); // TODO: to be refactored - problem with screen rotation
+            PlayerSetup.liveData.getValue().setSolution(extras.getString("SELECTED_WORD", PlayerSetup.liveData.getValue().addSolution()));
+            PlayerSetup.liveData.getValue().updateVisibleSentence(); // TODO: to be refactored - problem with screen rotation
         }
     }
 
@@ -58,7 +59,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     @Override
     public void onClick(View view) {
         crossOutLetter(view.getId());
-        Logic logic = Menu.liveData.getValue();
+        Logic logic = PlayerSetup.liveData.getValue();
 
         hiddenWord.setText(logic.getVisibleSentence());
         lives.setText("Lives " + logic.getLives());
@@ -80,19 +81,19 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     public void endGame(boolean won){
 
         Intent intent = new Intent(this, GameEnd.class);
-        intent.putExtra("USED_LETTERS", Menu.liveData.getValue().getUsedLetters());
-        intent.putExtra("SOLUTION", Menu.liveData.getValue().getSolution());
+        intent.putExtra("USED_LETTERS", PlayerSetup.liveData.getValue().getUsedLetters());
+        intent.putExtra("SOLUTION", PlayerSetup.liveData.getValue().getSolution());
         intent.putExtra("STATUS", won);
 
         finish();
         startActivity(intent);
-        Menu.liveData.getValue().restart();
+        PlayerSetup.liveData.getValue().restart();
     }
 
 
     public void crossOutLetter(int id) {
         String letter = keyboard.getLetter(id);
-        Menu.liveData.getValue().guessedLetter(letter);
+        PlayerSetup.liveData.getValue().guessedLetter(letter);
 
         Button b = findViewById(id);
         b.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_usedletter));

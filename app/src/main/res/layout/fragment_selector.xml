@@ -16,19 +16,30 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button"
+        android:id="@+id/floating_action_btn"
         app:fabSize="normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         app:srcCompat="@mipmap/ic_cloud_download_outline"
         app:layout_anchor="@id/wordRecycler"
         app:layout_anchorGravity="bottom|right|end"
         app:layout_behavior=".ScrollAwareFabBehaviour"
         />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:layout_gravity="bottom|end"
+        android:progress="80"
+        android:indeterminate="true"
+        android:progressDrawable="@drawable/progresscircle">
 
+    </ProgressBar>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,26 +2,31 @@ package com.example.galgeleg.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.galgeleg.Logic;
 import com.example.galgeleg.R;
-import com.example.galgeleg.activity.Leaderboard;
-import com.example.galgeleg.activity.Menu;
+import com.example.galgeleg.activity.PlayerSetup;
+import com.example.galgeleg.util.PreferenceUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,20 +41,14 @@ public class Selector extends Fragment implements View.OnClickListener {
     private String[] words;
     private RecyclerView recyclerView;
     private ListElemAdapter elemAdapter = new ListElemAdapter();
-    int selectedPosition = 0;
-
+    private int selectedPosition = 0;
+    private ProgressBar progressBar;
+    private FloatingActionButton floatingActionButton;
 
     public Selector() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment Selector.
-     */
-    // TODO: Rename and change types and number of parameters
     public static Selector newInstance() {
         return new Selector();
     }
@@ -62,17 +61,27 @@ public class Selector extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_selector, container, false);
+
         recyclerView = v.findViewById(R.id.wordRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
         recyclerView.setAdapter(elemAdapter);
-        FloatingActionButton floatingActionButton = v.findViewById(R.id.floating_action_button);
+
+        floatingActionButton = v.findViewById(R.id.floating_action_btn);
         floatingActionButton.setOnClickListener(this);
 
-        words = Menu.liveData.getValue().getWordLibrary().toArray(new String[0]);
+        progressBar = v.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.INVISIBLE);
+        // When reading from wordLibrary in Logic, the order of words differ from the order in cache
+        // therefore to maintain the same order I have to read from Preferences.
+        String data = PreferenceUtil.readSharedSetting(getContext(), "WORDS", "noValues");
+        words = data.replaceAll("\\W+"," ").trim().split(" ");
+
+        if (data.equals("noValues"))
+            words = PlayerSetup.liveData.getValue().getWordLibrary().toArray(new String[0]);
+
+
         return v;
     }
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -93,8 +102,19 @@ public class Selector extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Snackbar.make(v, "Here's a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        floatingActionButton.setVisibility(View.INVISIBLE);
+        new loadWordsFromDR().execute(); // start async call to DR
+        progressBar.setVisibility(View.VISIBLE);
+        /*
+        // TODO spinning in the background
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        }, 6000);
 
+         */
     }
 
     /**
@@ -154,7 +174,44 @@ public class Selector extends Fragment implements View.OnClickListener {
             selectedPosition = getAdapterPosition();
             elemAdapter.notifyItemChanged(selectedPosition);
             listener.recyclerViewListClicked(v, this.getLayoutPosition());
+        }
+    }
 
+    private class loadWordsFromDR extends AsyncTask<URL, Integer, Set<String>> {
+
+        protected Set<String> doInBackground(URL... urls) {
+            Logic logic = PlayerSetup.liveData.getValue();
+            Set<String> wordsFromDR = null;
+
+            try {
+                wordsFromDR = logic.hentOrdFraDr();
+                logic.getWordLibrary().clear();
+                logic.getWordLibrary().addAll(wordsFromDR);
+                PreferenceUtil.saveSharedSetting(getContext(), "WORDS", String.valueOf(wordsFromDR));
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            PlayerSetup.liveData.postValue(logic);
+            return wordsFromDR;
+        }
+
+        // TODO: Error handling in case of no connection
+
+        @Override
+        protected void onPostExecute(Set<String> words) {
+            System.out.println("Downloaded: " + words);
+            if (words != null){
+                Selector.this.words = words.toArray(new String[0]);
+                elemAdapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), "Words are downloaded", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(getContext(), "Unable to fetch from DR!", Toast.LENGTH_LONG).show();
+            }
+            floatingActionButton.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
         }
     }
 }

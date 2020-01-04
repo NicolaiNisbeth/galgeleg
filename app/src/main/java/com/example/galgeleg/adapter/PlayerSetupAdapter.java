@@ -12,6 +12,8 @@ public class PlayerSetupAdapter extends FragmentStatePagerAdapter {
 
     private int numOfTabs;
 
+
+
     public PlayerSetupAdapter(FragmentManager fm, int NumberOfTabs) {
         super(fm);
         this.numOfTabs = NumberOfTabs;
