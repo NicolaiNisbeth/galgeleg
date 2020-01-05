@@ -24,6 +24,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     private Keyboard keyboard;
     private TextView hiddenWord, lives;
     private String username;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         hiddenWord.setText(logic.getVisibleSentence());
         lives.setText("Lives " + logic.getLives());
 
-        int score = (logic.getLives() + 1) * logic.getSolution().length() ; // TODO: + 1 for leaderboard illustration purposes!
+        score = (logic.getLives() + 1) * logic.getSolution().length() ; // TODO: + 1 for leaderboard illustration purposes!
         if (logic.gameIsWon()) {
             saveScore(score, username);
             endGame(true);
@@ -86,6 +87,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         intent.putExtra("USED_LETTERS", PlayerSetup.liveData.getValue().getUsedLetters());
         intent.putExtra("SOLUTION", PlayerSetup.liveData.getValue().getSolution());
         intent.putExtra("STATUS", won);
+        intent.putExtra("SCORE", score);
 
         finish();
         startActivity(intent);
