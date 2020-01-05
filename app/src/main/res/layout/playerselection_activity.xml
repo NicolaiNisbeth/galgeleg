@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Player Setup"
+            android:text="@string/player_setup"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:textSize="20sp"
-        android:text="Play"
+        android:text="@string/play"
         android:textColor="@color/white"
         android:enabled="false"
         android:layout_height="0dp" />

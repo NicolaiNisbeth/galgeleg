@@ -1,6 +1,5 @@
 package com.example.galgeleg;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,10 +11,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-
 public class Logic {
     private static Logic instance;
-
     private Set<String> wordLibrary;
     private String solution;
     private ArrayList<String> usedLetters;
@@ -181,20 +178,8 @@ public class Logic {
                 '}';
     }
 
-    public boolean isGuessCorrect() {
-        return previousGuessWasCorrect;
-    }
-
-    public void setPreviousGuessWasCorrect(boolean previousGuessWasCorrect) {
-        this.previousGuessWasCorrect = previousGuessWasCorrect;
-    }
-
     public Set<String> getWordLibrary() {
         return wordLibrary;
-    }
-
-    public void setWordLibrary(HashSet<String> wordLibrary) {
-        this.wordLibrary = wordLibrary;
     }
 
     public String getSolution() {
@@ -209,47 +194,23 @@ public class Logic {
         return usedLetters;
     }
 
-    public void setUsedLetters(ArrayList<String> usedLetters) {
-        this.usedLetters = usedLetters;
-    }
-
     public StringBuilder getVisibleSentence() {
         return visibleSentence;
-    }
-
-    public void setVisibleSentence(StringBuilder visibleSentence) {
-        this.visibleSentence = visibleSentence;
     }
 
     public int getLives() {
         return lives;
     }
 
-    public void setLives(int lives) {
-        this.lives = lives;
-    }
-
     public boolean gameIsWon() {
         return gameIsWon;
-    }
-
-    public void setGameIsWon(boolean gameIsWon) {
-        this.gameIsWon = gameIsWon;
     }
 
     public boolean gameIsLost() {
         return gameIsLost;
     }
 
-    public void setGameIsLost(boolean gameIsLost) {
-        this.gameIsLost = gameIsLost;
-    }
-
     public int getWrongGuess() {
         return wrongGuess;
-    }
-
-    public void setWrongGuess(int wrongGuess) {
-        this.wrongGuess = wrongGuess;
     }
 }

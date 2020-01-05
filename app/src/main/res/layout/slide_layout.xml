@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/slide_image"
         android:layout_centerHorizontal="true"
-        android:text="HEADING"
+        android:text="@string/heading"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"

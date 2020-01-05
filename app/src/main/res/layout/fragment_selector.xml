@@ -8,7 +8,6 @@
     tools:context=".fragment.Selector"
     >
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wordRecycler"
         android:layout_width="match_parent"
@@ -38,8 +37,6 @@
         android:progress="80"
         android:indeterminate="true"
         android:progressDrawable="@drawable/progresscircle">
-
     </ProgressBar>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,13 +1,6 @@
 package com.example.galgeleg.util;
-
-
-
 import android.content.Context;
 import android.content.SharedPreferences;
-
-/**
- * https://www.sundanesepeople.com/creating-onboarding-screen-android-studio/
- */
 
 public class PreferenceUtil {
     private static final String PREFERENCES_FILE = "myPref";

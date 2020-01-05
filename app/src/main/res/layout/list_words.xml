@@ -6,12 +6,11 @@
 
     <TextView
         android:id="@+id/list_elem_word"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_weight="1"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark" >
-
     </TextView>
 
 </LinearLayout>

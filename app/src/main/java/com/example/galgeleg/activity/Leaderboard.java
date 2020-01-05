@@ -14,17 +14,17 @@ import com.example.galgeleg.R;
 import com.example.galgeleg.util.PreferenceUtil;
 
 public class Leaderboard extends AppCompatActivity {
-    private String[] names, scores;
     private ListElemAdapter elemAdapter = new ListElemAdapter();
     private RecyclerView recyclerView;
+    private String[] names, scores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leaderboard_activity);
 
-        names = PreferenceUtil.readSharedSetting(getBaseContext(), "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
-        scores = PreferenceUtil.readSharedSetting(getBaseContext(), "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
+        names = PreferenceUtil.readSharedSetting(getBaseContext(), getString(R.string.names_pref), getString(R.string.default_no_names_pref)).replaceAll("\\W+"," ").trim().split(" ");
+        scores = PreferenceUtil.readSharedSetting(getBaseContext(), getString(R.string.scores_pref), getString(R.string.default_no_scores_pref)).replaceAll("\\W+"," ").trim().split(" ");
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -41,7 +41,8 @@ public class Leaderboard extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ListElemViewHolder holder, int i) {
-            if (scores[i].equals("0") || names[i].equals("NO_NAMES")) return;
+            if (scores[i].equals(getString(R.string.default_no_scores_pref))
+                || names[i].equals(getString(R.string.default_no_names_pref))) return;
 
             holder.ranking.setText("" + (i + 1));
             holder.name.setText(names[i]);

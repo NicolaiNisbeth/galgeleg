@@ -3,7 +3,6 @@ package com.example.galgeleg.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,12 +14,13 @@ import com.example.galgeleg.R;
 import com.github.jinatonic.confetti.CommonConfetti;
 
 public class GameEnd extends AppCompatActivity implements View.OnClickListener {
+    private int goldDark, goldMed, gold, goldLight, tries, score;
     private TextView title, outcome, word, scoreText;
     private Button playAgain, menu;
-    private MediaPlayer player;
-    private int goldDark, goldMed, gold, goldLight;
-    private int[] colors;
     private ViewGroup container;
+    private MediaPlayer player;
+    private String solution;
+    private int[] colors;
     private boolean won;
 
     @Override
@@ -34,30 +34,36 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
         menu = findViewById(R.id.goToMenu);
         playAgain = findViewById(R.id.playAgain);
         scoreText = findViewById(R.id.score);
+        container = findViewById(R.id.game_end_container);
 
         menu.setOnClickListener(this);
         playAgain.setOnClickListener(this);
 
-        container = findViewById(R.id.game_end_container);
-        final Resources res = getResources();
-        goldDark = res.getColor(R.color.gold_dark);
-        goldMed = res.getColor(R.color.gold_med);
-        gold = res.getColor(R.color.gold);
-        goldLight = res.getColor(R.color.gold_light);
-        colors = new int[] { goldDark, goldMed, gold, goldLight };
+        setupConfettiColors();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
-            won = extras.getBoolean("STATUS");
-            int tries = extras.getStringArrayList("USED_LETTERS").size();
-            String solution = extras.getString("SOLUTION");
-            int score = extras.getInt("SCORE");
+            won = extras.getBoolean(getString(R.string.status_endgame));
+            tries = extras.getStringArrayList(getString(R.string.used_letter_endgame)).size();
+            solution = extras.getString(getString(R.string.solution_endgame));
+            score = extras.getInt(getString(R.string.score_endgame));
 
-            title.setText(won ? "You Won" : "You Lost");
-            outcome.setText(won ? "Tries " + tries : "The correct word was: ");
-            word.setText(won ? "" : solution);
-            scoreText.setText("Your score is " + score);
+            title.setText(won ? getString(R.string.win_msg) : getString(R.string.lose_msg));
+            outcome.setText(won ? String.format(getString(R.string.player_tries), tries) : "The correct word was: ");
+            word.setText(won ? getString(R.string.empty_string) : solution);
+            scoreText.setText(String.format(getString(R.string.player_score), score));
+
             playSound(won);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == menu)
+            finish();
+        else if (v == playAgain){
+            finish();
+            startActivity(new Intent(this, PlayerSetup.class));
         }
     }
 
@@ -85,7 +91,6 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
                 }
             });
         }
-
         player.start();
     }
 
@@ -102,13 +107,12 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == menu)
-            finish();
-        else if (v == playAgain){
-            finish();
-            startActivity(new Intent(this, PlayerSetup.class));
-        }
+    private void setupConfettiColors() {
+        final Resources res = getResources();
+        goldDark = res.getColor(R.color.gold_dark);
+        goldMed = res.getColor(R.color.gold_med);
+        gold = res.getColor(R.color.gold);
+        goldLight = res.getColor(R.color.gold_light);
+        colors = new int[] { goldDark, goldMed, gold, goldLight };
     }
 }

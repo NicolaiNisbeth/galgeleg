@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,22 +24,19 @@ import com.example.galgeleg.util.PreferenceUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Selector extends Fragment implements View.OnClickListener {
-    private OnFragmentInteractionListener listener;
-    private String[] words;
-    private RecyclerView recyclerView;
     private ListElemAdapter elemAdapter = new ListElemAdapter();
+    private FloatingActionButton floatingActionButton;
+    private OnFragmentInteractionListener listener;
+    private RecyclerView recyclerView;
     private int selectedPosition = 0;
     private ProgressBar progressBar;
-    private FloatingActionButton floatingActionButton;
+    private String[] words;
+    private Logic logic;
 
-    public Selector() {
-        // Required empty public constructor
-    }
-
+    public Selector() { }
     public static Selector newInstance() {
         return new Selector();
     }
@@ -63,20 +59,22 @@ public class Selector extends Fragment implements View.OnClickListener {
 
         progressBar = v.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
+        logic = PlayerSetup.liveData.getValue();
+
 
         // When reading from wordLibrary in Logic, the order of words differ from the order in cache
         // therefore to maintain the same order I have to read from Preferences.
-        String data = PreferenceUtil.readSharedSetting(getContext(), "WORDS", "noValues");
+        String data = PreferenceUtil.readSharedSetting(getContext(), getString(R.string.words_pref), getString(R.string.default_no_words_pref));
         words = data.replaceAll("\\W+"," ").trim().split(" ");
 
-        if (data.equals("noValues"))
-            words = PlayerSetup.liveData.getValue().getWordLibrary().toArray(new String[0]);
+        if (data.equals(getString(R.string.default_no_words_pref)))
+            words = logic.getWordLibrary().toArray(new String[0]);
 
         return v;
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             listener = (OnFragmentInteractionListener) context;
@@ -99,22 +97,7 @@ public class Selector extends Fragment implements View.OnClickListener {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        void recyclerViewListClicked(View v, int position);
-    }
-
     class ListElemAdapter extends RecyclerView.Adapter<Selector.ListElemViewHolder> {
-
         @NonNull
         @Override
         public ListElemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -139,7 +122,6 @@ public class Selector extends Fragment implements View.OnClickListener {
     // https://stackoverflow.com/questions/27194044/how-to-properly-highlight-selected-item-on-recyclerview
     class ListElemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView word;
-
         public ListElemViewHolder(View listElementViews) {
             super(listElementViews);
             word = listElementViews.findViewById(R.id.list_elem_word);
@@ -160,14 +142,13 @@ public class Selector extends Fragment implements View.OnClickListener {
     private class loadWordsFromDR extends AsyncTask<URL, Integer, Set<String>> {
 
         protected Set<String> doInBackground(URL... urls) {
-            Logic logic = PlayerSetup.liveData.getValue();
             Set<String> wordsFromDR = null;
 
             try {
                 wordsFromDR = logic.hentOrdFraDr();
                 logic.getWordLibrary().clear();
                 logic.getWordLibrary().addAll(wordsFromDR);
-                PreferenceUtil.saveSharedSetting(getContext(), "WORDS", String.valueOf(wordsFromDR));
+                PreferenceUtil.saveSharedSetting(getContext(), getString(R.string.words_pref), String.valueOf(wordsFromDR));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -183,14 +164,18 @@ public class Selector extends Fragment implements View.OnClickListener {
             if (words != null){
                 Selector.this.words = words.toArray(new String[0]);
                 elemAdapter.notifyDataSetChanged();
-                Toast.makeText(getContext(), "DR words are downloaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.download_succesful_msg, Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(getContext(), "Unable to fetch from DR!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.download_failed, Toast.LENGTH_LONG).show();
             }
 
             floatingActionButton.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    public interface OnFragmentInteractionListener {
+        void recyclerViewListClicked(View v, int position);
     }
 }

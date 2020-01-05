@@ -7,17 +7,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-
 import com.example.galgeleg.Keyboard;
 import com.example.galgeleg.Logic;
 import com.example.galgeleg.R;
 import com.example.galgeleg.util.PreferenceUtil;
-
 import java.util.Arrays;
-import java.util.Observable;
 
 public class Game extends AppCompatActivity implements View.OnClickListener, androidx.lifecycle.Observer<Logic> {
     private ImageView imageView;
@@ -25,6 +19,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     private TextView hiddenWord, lives;
     private String username;
     private int score;
+    private Logic logic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +32,24 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         keyboard = findViewById(R.id.keyboard);
 
         PlayerSetup.liveData.observe(this, this);
+        logic = PlayerSetup.liveData.getValue();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            username = extras.getString("USERNAME");
-            if (extras.getString("SELECTED_WORD") == null) Logic.getInstance();
+            username = extras.getString(getString(R.string.username));
+
+            if (extras.getString(getString(R.string.selectedWord)) == null) Logic.getInstance();
             else {
-                PlayerSetup.liveData.getValue().setSolution(extras.getString("SELECTED_WORD"));
-                PlayerSetup.liveData.getValue().updateVisibleSentence(); // TODO: to be refactored - problem with screen rotation
+                logic.setSolution(extras.getString(getString(R.string.selectedWord)));
+                logic.updateVisibleSentence();
             }
         }
-
     }
 
     @Override
     public void onChanged(Logic logic) {
         hiddenWord.setText(logic.getVisibleSentence());
-        lives.setText("Lives " + logic.getLives());
+        lives.setText(String.format(getString(R.string.lives_msg), logic.getLives()));
         setHangingMan(logic.getLives());
 
         for (String letter : logic.getUsedLetters()) crossOutLetter(keyboard.getLetterID(letter));
@@ -62,18 +58,16 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     @Override
     public void onClick(View view) {
         crossOutLetter(view.getId());
-        Logic logic = PlayerSetup.liveData.getValue();
-
         hiddenWord.setText(logic.getVisibleSentence());
-        lives.setText("Lives " + logic.getLives());
+        lives.setText(String.format(getString(R.string.lives_msg), logic.getLives()));
 
-        score = (logic.getLives() + 1) * logic.getSolution().length() ; // TODO: + 1 for leaderboard illustration purposes!
+        score = (logic.getLives() + 1) * logic.getSolution().length() ;
         if (logic.gameIsWon()) {
             saveScore(score, username);
             endGame(true);
         }
         else if (logic.gameIsLost()){
-            saveScore(score, username);                                // TODO: only for illustration purposes!
+            saveScore(score, username);
             endGame(false);
         }
         else {
@@ -82,29 +76,26 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     }
 
     public void endGame(boolean won){
-
         Intent intent = new Intent(this, GameEnd.class);
-        intent.putExtra("USED_LETTERS", PlayerSetup.liveData.getValue().getUsedLetters());
-        intent.putExtra("SOLUTION", PlayerSetup.liveData.getValue().getSolution());
-        intent.putExtra("STATUS", won);
-        intent.putExtra("SCORE", score);
-
+        intent.putExtra(getString(R.string.used_letter_endgame), logic.getUsedLetters());
+        intent.putExtra(getString(R.string.solution_endgame), logic.getSolution());
+        intent.putExtra(getString(R.string.status_endgame), won);
+        intent.putExtra(getString(R.string.score_endgame), score);
         finish();
         startActivity(intent);
-        PlayerSetup.liveData.getValue().restart();
+
+        logic.restart();
     }
 
 
     public void crossOutLetter(int id) {
         String letter = keyboard.getLetter(id);
-        PlayerSetup.liveData.getValue().guessedLetter(letter);
+        logic.guessedLetter(letter);
 
         Button b = findViewById(id);
         b.setBackground(getResources().getDrawable(R.drawable.btn_usedletter));
     }
 
-
-    // TODO: Michael idea with visibility
     public void setHangingMan(int lives) {
         switch (lives){
             case 5: imageView.setImageResource(R.drawable.head); break;
@@ -117,13 +108,14 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     }
 
     private void saveScore(int currentScore, String currentName) {
-        String[] names = PreferenceUtil.readSharedSetting(this, "NAMES", "NO_NAMES").replaceAll("\\W+"," ").trim().split(" ");
-        String[] scores = PreferenceUtil.readSharedSetting(this, "SCORES", "0").replaceAll("\\W+"," ").trim().split(" ");
+        String[] names = PreferenceUtil.readSharedSetting(this, getString(R.string.names_pref), getString(R.string.default_no_names_pref)).replaceAll("\\W+"," ").trim().split(" ");
+        String[] scores = PreferenceUtil.readSharedSetting(this, getString(R.string.scores_pref), getString(R.string.default_no_scores_pref)).replaceAll("\\W+"," ").trim().split(" ");
 
-        if (names[0].equals("NO_NAMES")){
+        // setup arrays initially
+        if (names[0].equals(getString(R.string.default_no_names_pref))){
             names = new String[20];
             scores = new String[20];
-            Arrays.fill(scores, "0");
+            Arrays.fill(scores, getString(R.string.default_no_scores_pref));
         }
 
         // find idx i to place currentScore
@@ -143,7 +135,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
             names[i] = currentName;
         }
 
-        PreferenceUtil.saveSharedSetting(this, "NAMES", Arrays.toString(names));
-        PreferenceUtil.saveSharedSetting(this, "SCORES", Arrays.toString(scores));
+        PreferenceUtil.saveSharedSetting(this, getString(R.string.names_pref), Arrays.toString(names));
+        PreferenceUtil.saveSharedSetting(this, getString(R.string.scores_pref), Arrays.toString(scores));
     }
 }

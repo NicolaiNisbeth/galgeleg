@@ -3,13 +3,14 @@ package com.example.galgeleg;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-// https://guides.codepath.com/android/floating-action-buttons
+/**
+ * https://guides.codepath.com/android/floating-action-buttons
+ */
 public class ScrollAwareFabBehaviour extends FloatingActionButton.Behavior {
 
     public ScrollAwareFabBehaviour(Context context, AttributeSet attrs) {

@@ -15,7 +15,9 @@ import com.example.galgeleg.R;
 import com.example.galgeleg.adapter.SliderAdapter;
 import com.example.galgeleg.util.PreferenceUtil;
 
-
+/**
+ * https://www.sundanesepeople.com/creating-onboarding-screen-android-studio/
+ */
 public class Onboarding extends AppCompatActivity implements View.OnClickListener {
     private SliderAdapter sliderAdapter;
     private final int NUM_OF_DOTS = 3;
@@ -46,7 +48,6 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         mSlideViewPager.addOnPageChangeListener(viewListener);
     }
 
-
     public void addDotsIndicator(int position){
         mDots = new TextView[NUM_OF_DOTS];
         mDotLayout.removeAllViews();
@@ -60,9 +61,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         }
 
         if (mDots.length > 0) mDots[position].setTextColor(getResources().getColor(R.color.colorAccent));
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -77,7 +76,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
     }
 
     private void launchMenu(){
-        PreferenceUtil.saveSharedSetting(this, Menu.PREF_NEW_VISITOR, "false");
+        PreferenceUtil.saveSharedSetting(this, getString(R.string.new_visitor_pref), getString(R.string.new_visitor_default_pref));
         Intent intent = new Intent(this, Menu.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -94,15 +93,15 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
 
             if (firstPage){
                 mNextBtn.setEnabled(true);
-                mNextBtn.setText("Next");
+                mNextBtn.setText(R.string.next_btn_text);
             }
             else if (lastPage){
                 mNextBtn.setEnabled(true);
-                mNextBtn.setText("Start");
+                mNextBtn.setText(R.string.start_btn_text);
             }
             else {
                 mNextBtn.setEnabled(true);
-                mNextBtn.setText("Next");
+                mNextBtn.setText(R.string.next_btn_text);
             }
         }
 

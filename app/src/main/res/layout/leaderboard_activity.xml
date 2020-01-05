@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,16 +11,14 @@
         android:padding="5dp"
         android:background="@color/colorAccent">
 
-
         <TextView
             android:id="@+id/list_elem_ranking"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_weight="1"
-            android:text="Rank"
+            android:text="@string/rank"
             android:gravity="center"
             android:textColor="@color/white" >
-
         </TextView>
 
         <TextView
@@ -29,11 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_weight="1"
-            android:text="Player"
+            android:text="@string/player"
             android:gravity="center"
-
             android:textColor="@color/white" >
-
         </TextView>
 
         <TextView
@@ -42,10 +37,8 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Score"
-
+            android:text="@string/score_txt"
             android:textColor="@color/white">
-
         </TextView>
     </LinearLayout>
 
@@ -56,6 +49,5 @@
         android:layout_below="@id/list_elem_layout"
         tools:layout_editor_absoluteX="306dp"
         tools:layout_editor_absoluteY="5dp" />
-
 
 </RelativeLayout>

@@ -2,6 +2,8 @@ package com.example.galgeleg.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,24 +13,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.galgeleg.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Guesser.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Guesser#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Guesser extends Fragment {
 
     private OnFragmentInteractionListener listener;
     private TextView editUsername;
     private String usernameInput;
 
-    public Guesser() {
-        // Required empty public constructor
-    }
-
+    public Guesser() { }
     public static Guesser newInstance() {
         return new Guesser();
     }
@@ -63,7 +54,7 @@ public class Guesser extends Fragment {
     };
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             listener = (OnFragmentInteractionListener) context;

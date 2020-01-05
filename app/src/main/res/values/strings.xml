@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">s175565 Nicolai Nisbeth Galgeleg</string>
-    <string name="menuTitle">Hangman</string>
-    <string name="startBtn">Start</string>
-    <string name="leaderboardBtn">Leaderboard</string>
-    <string name="helpBtn">Help</string>
-    <string name="credits">Nicolai Nisbeth s175565</string>
+
     <string name="qBtn">q</string>
     <string name="wBtn">w</string>
     <string name="eBtn">e</string>
@@ -34,9 +30,54 @@
     <string name="bBtn">b</string>
     <string name="nBtn">n</string>
     <string name="mBtn">m</string>
-    <string name="lives">Lives</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="names_pref">NAMES</string>
+    <string name="scores_pref">SCORES</string>
+    <string name="new_visitor_pref">NEW_VISITOR</string>
+    <string name="words_pref">WORDS</string>
+    <string name="default_no_names_pref">NO_NAMES</string>
+    <string name="default_no_scores_pref">0</string>
+    <string name="new_visitor_default_pref">false</string>
+    <string name="default_no_words_pref">noValues</string>
+
+    <string name="player_setup">Player Setup</string>
+    <string name="guesser_tab1">GUESSER</string>
+    <string name="selector_tab2">SELECTOR</string>
+
+    <string name="credits">Nicolai Nisbeth s175565</string>
+    <string name="lives">Lives</string>
+    <string name="menuTitle">Hangman</string>
+    <string name="startBtn">Start</string>
+    <string name="leaderboardBtn">Leaderboard</string>
+    <string name="helpBtn">Help</string>
+    <string name="next_btn_text">Next</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">USERNAME</string>
+    <string name="selectedWord">SELECTED_WORD</string>
+    <string name="used_letter_endgame">USED_LETTERS</string>
+    <string name="solution_endgame">SOLUTION</string>
+    <string name="status_endgame">STATUS</string>
+    <string name="score_endgame">SCORE</string>
+    <string name="lives_msg">Lives %d</string>
+    <string name="win_msg">You Won</string>
+    <string name="lose_msg">You Lost</string>
+    <string name="empty_string" />
+    <string name="player_tries">Tries %d</string>
+    <string name="player_score">Your score is %d</string>
+    <string name="start_btn_text">Start</string>
+    <string name="download_succesful_msg">DR words are downloaded</string>
+    <string name="download_failed">Unable to fetch from DR!</string>
+    <string name="menu">Menu</string>
+    <string name="go_again">Go Again</string>
+    <string name="next">next</string>
+    <string name="skip">Skip</string>
+    <string name="write_name_to_play">Write Name to Play</string>
+    <string name="hangingman">hangingman</string>
+    <string name="help_description">Choose one person to be the Selector. This is the person that chooses the word for the other person to guess.  Once the word has been chosen, begin guessing which letters are in the word.  Whenever the players guess a letter that is not in the word the man is one part closer to be hanged.  The players win when they guess the correct word.</string>
+    <string name="rank">Rank</string>
+    <string name="player">Player</string>
+    <string name="score_txt">Score</string>
+    <string name="play">Play</string>
+    <string name="heading">HEADING</string>
 
 </resources>
