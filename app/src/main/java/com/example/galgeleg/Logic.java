@@ -43,7 +43,7 @@ public class Logic {
     }
 
     public void restart(){
-        //solution = addSolution();
+        solution = addSolution();
         usedLetters = new ArrayList<>();
         visibleSentence = new StringBuilder();
         lives = 6;

@@ -22,8 +22,7 @@ import java.util.Observable;
 public class Game extends AppCompatActivity implements View.OnClickListener, androidx.lifecycle.Observer<Logic> {
     private ImageView imageView;
     private Keyboard keyboard;
-    private TextView hiddenWord;
-    private TextView lives;
+    private TextView hiddenWord, lives;
     private String username;
 
     @Override
@@ -41,9 +40,13 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             username = extras.getString("USERNAME");
-            PlayerSetup.liveData.getValue().setSolution(extras.getString("SELECTED_WORD", PlayerSetup.liveData.getValue().addSolution()));
-            PlayerSetup.liveData.getValue().updateVisibleSentence(); // TODO: to be refactored - problem with screen rotation
+            if (extras.getString("SELECTED_WORD") == null) Logic.getInstance();
+            else {
+                PlayerSetup.liveData.getValue().setSolution(extras.getString("SELECTED_WORD"));
+                PlayerSetup.liveData.getValue().updateVisibleSentence(); // TODO: to be refactored - problem with screen rotation
+            }
         }
+
     }
 
     @Override
