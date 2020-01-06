@@ -23,8 +23,15 @@ public class Leaderboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leaderboard_activity);
 
-        names = PreferenceUtil.readSharedSetting(getBaseContext(), getString(R.string.names_pref), getString(R.string.default_no_names_pref)).replaceAll("\\W+"," ").trim().split(" ");
-        scores = PreferenceUtil.readSharedSetting(getBaseContext(), getString(R.string.scores_pref), getString(R.string.default_no_scores_pref)).replaceAll("\\W+"," ").trim().split(" ");
+        names = PreferenceUtil.readSharedSetting(getBaseContext(), getString(R.string.names_pref), getString(R.string.default_no_names_pref))
+                .replaceAll("\\W+"," ")
+                .trim()
+                .split(" ");
+
+        scores = PreferenceUtil.readSharedSetting(getBaseContext(), getString(R.string.scores_pref), getString(R.string.default_no_scores_pref))
+                .replaceAll("\\W+"," ")
+                .trim()
+                .split(" ");
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

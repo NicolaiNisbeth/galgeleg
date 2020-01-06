@@ -34,6 +34,7 @@ public class Keyboard extends LinearLayout {
         int btnID;
         btnToLetter = new SparseArray<>();
         letterToBtn = new HashMap<>();
+
         for (char i = 'a'; i <= 'z'; i++) {
             btnID = getResources().getIdentifier(i+"Btn", "id", context.getPackageName());
             findViewById(btnID).setOnClickListener(game);

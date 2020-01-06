@@ -34,15 +34,10 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         PlayerSetup.liveData.observe(this, this);
         logic = PlayerSetup.liveData.getValue();
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            username = extras.getString(getString(R.string.username));
-
-            if (extras.getString(getString(R.string.selectedWord)) == null) Logic.getInstance();
-            else {
-                logic.setSolution(extras.getString(getString(R.string.selectedWord)));
-                logic.updateVisibleSentence();
-            }
+        Bundle dataFromPrevActivity = getIntent().getExtras();
+        if (dataFromPrevActivity != null) {
+            username = dataFromPrevActivity.getString(getString(R.string.username));
+            retrieveAndSetSolution(dataFromPrevActivity);
         }
     }
 
@@ -75,6 +70,18 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         }
     }
 
+    private void retrieveAndSetSolution(Bundle dataFromPrevActivity) {
+        boolean wordWasSelected = dataFromPrevActivity.getString(getString(R.string.selectedWord)) != null;
+
+        if (wordWasSelected){
+            logic.updateVisibleSentence();
+            logic.setSolution(dataFromPrevActivity.getString(getString(R.string.selectedWord)));
+        }
+        else {
+            Logic.getInstance();
+        }
+    }
+
     public void endGame(boolean won){
         Intent intent = new Intent(this, GameEnd.class);
         intent.putExtra(getString(R.string.used_letter_endgame), logic.getUsedLetters());
@@ -86,7 +93,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
 
         logic.restart();
     }
-
 
     public void crossOutLetter(int id) {
         String letter = keyboard.getLetter(id);
@@ -108,8 +114,15 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     }
 
     private void saveScore(int currentScore, String currentName) {
-        String[] names = PreferenceUtil.readSharedSetting(this, getString(R.string.names_pref), getString(R.string.default_no_names_pref)).replaceAll("\\W+"," ").trim().split(" ");
-        String[] scores = PreferenceUtil.readSharedSetting(this, getString(R.string.scores_pref), getString(R.string.default_no_scores_pref)).replaceAll("\\W+"," ").trim().split(" ");
+        String[] names = PreferenceUtil.readSharedSetting(this, getString(R.string.names_pref), getString(R.string.default_no_names_pref))
+                .replaceAll("\\W+"," ")
+                .trim()
+                .split(" ");
+
+        String[] scores = PreferenceUtil.readSharedSetting(this, getString(R.string.scores_pref), getString(R.string.default_no_scores_pref))
+                .replaceAll("\\W+"," ")
+                .trim()
+                .split(" ");
 
         // setup arrays initially
         if (names[0].equals(getString(R.string.default_no_names_pref))){
