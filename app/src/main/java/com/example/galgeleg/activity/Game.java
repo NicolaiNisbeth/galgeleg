@@ -74,8 +74,8 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         boolean wordWasSelected = dataFromPrevActivity.getString(getString(R.string.selectedWord)) != null;
 
         if (wordWasSelected){
-            logic.updateVisibleSentence();
             logic.setSolution(dataFromPrevActivity.getString(getString(R.string.selectedWord)));
+            logic.updateVisibleSentence();
         }
         else {
             Logic.getInstance();
