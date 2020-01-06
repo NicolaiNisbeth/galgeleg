@@ -77,9 +77,6 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
             logic.setSolution(dataFromPrevActivity.getString(getString(R.string.selectedWord)));
             logic.updateVisibleSentence();
         }
-        else {
-            Logic.getInstance();
-        }
     }
 
     public void endGame(boolean won){
