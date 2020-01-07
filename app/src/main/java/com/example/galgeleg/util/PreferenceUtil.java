@@ -2,6 +2,10 @@ package com.example.galgeleg.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * https://gist.github.com/javpoblano/9f406028bd6597260081c11b1cfca944
+ */
+
 public class PreferenceUtil {
     private static final String PREFERENCES_FILE = "myPref";
     private Context mContext;

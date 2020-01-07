@@ -17,6 +17,10 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Arrays;
 
+/**
+ * Similar structure in our final project
+ */
+
 public class PlayerSetupActivity extends AppCompatActivity implements GuesserFragment.OnFragmentInteractionListener, SelectorFragment.OnFragmentInteractionListener, View.OnClickListener {
     public static final MutableLiveData<GameLogic> liveData = new MutableLiveData<>();
     private String tab1Title, tab2Title, username, selectedWord;

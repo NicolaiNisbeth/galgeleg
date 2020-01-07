@@ -4,6 +4,8 @@ import com.example.galgeleg.game.GameLogic;
 
 import org.junit.Test;
 
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -38,7 +40,7 @@ public class ExampleUnitTest {
     @Test
     public void prøvHentOrdFraDr() throws Exception {
         GameLogic spil = GameLogic.getInstance();
-        spil.hentOrdFraDr();
-        assertTrue("Mere end 100 ord fra DR", spil.getWordLibrary().size()>100);
+        Set<String> ord = spil.hentOrdFraDr();
+        assertTrue("Mere end 100 ord fra DR", ord.size()>100);
     }
 }
