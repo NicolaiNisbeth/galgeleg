@@ -1,4 +1,4 @@
-package com.example.galgeleg.fragment;
+package com.example.galgeleg.player_setup;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,15 +13,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.galgeleg.R;
 
-public class Guesser extends Fragment {
+public class GuesserFragment extends Fragment {
 
     private OnFragmentInteractionListener listener;
     private TextView editUsername;
     private String usernameInput;
 
-    public Guesser() { }
-    public static Guesser newInstance() {
-        return new Guesser();
+    public GuesserFragment() { }
+    public static GuesserFragment newInstance() {
+        return new GuesserFragment();
     }
 
     @Override

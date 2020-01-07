@@ -1,4 +1,4 @@
-package com.example.galgeleg.activity;
+package com.example.galgeleg.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.example.galgeleg.R;
+import com.example.galgeleg.player_setup.PlayerSetupActivity;
 import com.github.jinatonic.confetti.CommonConfetti;
 
-public class GameEnd extends AppCompatActivity implements View.OnClickListener {
+public class GameEndActivity extends AppCompatActivity implements View.OnClickListener {
     private int goldDark, goldMed, gold, goldLight, tries, score;
     private TextView title, outcome, word, scoreText;
     private Button playAgain, menu;
@@ -63,7 +64,7 @@ public class GameEnd extends AppCompatActivity implements View.OnClickListener {
             finish();
         else if (v == playAgain){
             finish();
-            startActivity(new Intent(this, PlayerSetup.class));
+            startActivity(new Intent(this, PlayerSetupActivity.class));
         }
     }
 

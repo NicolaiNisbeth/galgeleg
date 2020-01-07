@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.example.galgeleg.activity.Game">
+    tools:context="com.example.galgeleg.game.GameActivity">
 
     <TextView
         android:id="@+id/hiddenWord"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
-    <com.example.galgeleg.Keyboard
+    <com.example.galgeleg.game.KeyboardLL
         android:id="@+id/keyboard"
         android:layout_width="412dp"
         android:layout_height="195dp"
@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hiddenWord">
 
-    </com.example.galgeleg.Keyboard>
+    </com.example.galgeleg.game.KeyboardLL>
 
     <ImageView
         android:id="@+id/imageView"

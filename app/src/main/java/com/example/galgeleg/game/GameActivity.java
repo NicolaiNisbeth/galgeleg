@@ -1,4 +1,4 @@
-package com.example.galgeleg.activity;
+package com.example.galgeleg.game;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,32 +7,32 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.galgeleg.Keyboard;
-import com.example.galgeleg.Logic;
+
 import com.example.galgeleg.R;
+import com.example.galgeleg.player_setup.PlayerSetupActivity;
 import com.example.galgeleg.util.PreferenceUtil;
 import java.util.Arrays;
 
-public class Game extends AppCompatActivity implements View.OnClickListener, androidx.lifecycle.Observer<Logic> {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener, androidx.lifecycle.Observer<GameLogic> {
     private ImageView imageView;
-    private Keyboard keyboard;
+    private KeyboardLL keyboard;
     private TextView hiddenWord, lives;
     private String username;
     private int score;
-    private Logic logic;
+    private GameLogic gameLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_activity);
+        setContentView(R.layout.activity_game);
 
         imageView = findViewById(R.id.imageView);
         hiddenWord = findViewById(R.id.hiddenWord);
         lives = findViewById(R.id.lives);
         keyboard = findViewById(R.id.keyboard);
 
-        PlayerSetup.liveData.observe(this, this);
-        logic = PlayerSetup.liveData.getValue();
+        PlayerSetupActivity.liveData.observe(this, this);
+        gameLogic = PlayerSetupActivity.liveData.getValue();
 
         Bundle dataFromPrevActivity = getIntent().getExtras();
         if (dataFromPrevActivity != null) {
@@ -42,31 +42,31 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
     }
 
     @Override
-    public void onChanged(Logic logic) {
-        hiddenWord.setText(logic.getVisibleSentence());
-        lives.setText(String.format(getString(R.string.lives_msg), logic.getLives()));
-        setHangingMan(logic.getLives());
+    public void onChanged(GameLogic gameLogic) {
+        hiddenWord.setText(gameLogic.getVisibleSentence());
+        lives.setText(String.format(getString(R.string.lives_msg), gameLogic.getLives()));
+        setHangingMan(gameLogic.getLives());
 
-        for (String letter : logic.getUsedLetters()) crossOutLetter(keyboard.getLetterID(letter));
+        for (String letter : gameLogic.getUsedLetters()) crossOutLetter(keyboard.getLetterID(letter));
     }
 
     @Override
     public void onClick(View view) {
         crossOutLetter(view.getId());
-        hiddenWord.setText(logic.getVisibleSentence());
-        lives.setText(String.format(getString(R.string.lives_msg), logic.getLives()));
+        hiddenWord.setText(gameLogic.getVisibleSentence());
+        lives.setText(String.format(getString(R.string.lives_msg), gameLogic.getLives()));
 
-        score = (logic.getLives() + 1) * logic.getSolution().length() ;
-        if (logic.gameIsWon()) {
+        score = (gameLogic.getLives() + 1) * gameLogic.getSolution().length() ;
+        if (gameLogic.gameIsWon()) {
             saveScore(score, username);
             endGame(true);
         }
-        else if (logic.gameIsLost()){
+        else if (gameLogic.gameIsLost()){
             saveScore(score, username);
             endGame(false);
         }
         else {
-            setHangingMan(logic.getLives());
+            setHangingMan(gameLogic.getLives());
         }
     }
 
@@ -74,26 +74,26 @@ public class Game extends AppCompatActivity implements View.OnClickListener, and
         boolean wordWasSelected = dataFromPrevActivity.getString(getString(R.string.selectedWord)) != null;
 
         if (wordWasSelected){
-            logic.setSolution(dataFromPrevActivity.getString(getString(R.string.selectedWord)));
-            logic.updateVisibleSentence();
+            gameLogic.setSolution(dataFromPrevActivity.getString(getString(R.string.selectedWord)));
+            gameLogic.updateVisibleSentence();
         }
     }
 
     public void endGame(boolean won){
-        Intent intent = new Intent(this, GameEnd.class);
-        intent.putExtra(getString(R.string.used_letter_endgame), logic.getUsedLetters());
-        intent.putExtra(getString(R.string.solution_endgame), logic.getSolution());
+        Intent intent = new Intent(this, GameEndActivity.class);
+        intent.putExtra(getString(R.string.used_letter_endgame), gameLogic.getUsedLetters());
+        intent.putExtra(getString(R.string.solution_endgame), gameLogic.getSolution());
         intent.putExtra(getString(R.string.status_endgame), won);
         intent.putExtra(getString(R.string.score_endgame), score);
         finish();
         startActivity(intent);
 
-        logic.restart();
+        gameLogic.restart();
     }
 
     public void crossOutLetter(int id) {
         String letter = keyboard.getLetter(id);
-        logic.guessedLetter(letter);
+        gameLogic.guessedLetter(letter);
 
         Button b = findViewById(id);
         b.setBackground(getResources().getDrawable(R.drawable.btn_usedletter));

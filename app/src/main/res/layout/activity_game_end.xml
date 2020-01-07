@@ -5,7 +5,7 @@
     android:id="@+id/game_end_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.GameEnd">
+    tools:context=".game.GameEndActivity">
 
     <TextView
         android:id="@+id/gameOutcome"

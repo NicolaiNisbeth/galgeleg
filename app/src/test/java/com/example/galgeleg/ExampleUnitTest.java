@@ -1,5 +1,7 @@
 package com.example.galgeleg;
 
+import com.example.galgeleg.game.GameLogic;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -14,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class ExampleUnitTest {
     @Test
     public void afprøvMedSkovsnegl() {
-        Logic game = Logic.getInstance();
+        GameLogic game = GameLogic.getInstance();
         game.getWordLibrary().clear();
         game.getWordLibrary().add("skowsnegl");
 
@@ -35,7 +37,7 @@ public class ExampleUnitTest {
 
     @Test
     public void prøvHentOrdFraDr() throws Exception {
-        Logic spil = Logic.getInstance();
+        GameLogic spil = GameLogic.getInstance();
         spil.hentOrdFraDr();
         assertTrue("Mere end 100 ord fra DR", spil.getWordLibrary().size()>100);
     }

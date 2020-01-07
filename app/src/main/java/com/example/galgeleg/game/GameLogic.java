@@ -1,4 +1,4 @@
-package com.example.galgeleg;
+package com.example.galgeleg.game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public class Logic {
-    private static Logic instance;
+public class GameLogic {
+    private static GameLogic instance;
     private Set<String> wordLibrary;
     private String solution;
     private ArrayList<String> usedLetters;
@@ -20,7 +20,7 @@ public class Logic {
     private int lives = 6, wrongGuess = 0;
     private boolean gameIsWon, gameIsLost, previousGuessWasCorrect;
 
-    private Logic(){
+    private GameLogic(){
         this.wordLibrary = new HashSet<>();
         wordLibrary.add("bil");
         wordLibrary.add("computer");
@@ -34,8 +34,8 @@ public class Logic {
         restart();
     }
 
-    public static Logic getInstance(){
-        if (instance == null) instance = new Logic();
+    public static GameLogic getInstance(){
+        if (instance == null) instance = new GameLogic();
         return instance;
     }
 
@@ -167,7 +167,7 @@ public class Logic {
 
     @Override
     public String toString() {
-        return "Logic{" +
+        return "GameLogic{" +
                 //"wordLibrary=" + wordLibrary +
                 ", solution=" + solution +
                 ", usedLetters=" + usedLetters +

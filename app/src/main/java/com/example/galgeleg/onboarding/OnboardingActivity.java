@@ -1,4 +1,4 @@
-package com.example.galgeleg.activity;
+package com.example.galgeleg.onboarding;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -12,14 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.galgeleg.R;
-import com.example.galgeleg.adapter.SliderAdapter;
+import com.example.galgeleg.MenuActivity;
 import com.example.galgeleg.util.PreferenceUtil;
 
 /**
  * https://www.sundanesepeople.com/creating-onboarding-screen-android-studio/
  */
-public class Onboarding extends AppCompatActivity implements View.OnClickListener {
-    private SliderAdapter sliderAdapter;
+public class OnboardingActivity extends AppCompatActivity implements View.OnClickListener {
+    private OnboardingPagerAdapter sliderAdapter;
     private final int NUM_OF_DOTS = 3;
     private Button mNextBtn, mSkipBtn;
     private ViewPager mSlideViewPager;
@@ -40,7 +40,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
         mNextBtn.setOnClickListener(this);
         mSkipBtn.setOnClickListener(this);
 
-        sliderAdapter = new SliderAdapter(this);
+        sliderAdapter = new OnboardingPagerAdapter(this);
         mSlideViewPager.setAdapter(sliderAdapter);
 
         addDotsIndicator(0);
@@ -77,7 +77,7 @@ public class Onboarding extends AppCompatActivity implements View.OnClickListene
 
     private void launchMenu(){
         PreferenceUtil.saveSharedSetting(this, getString(R.string.new_visitor_pref), getString(R.string.new_visitor_default_pref));
-        Intent intent = new Intent(this, Menu.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

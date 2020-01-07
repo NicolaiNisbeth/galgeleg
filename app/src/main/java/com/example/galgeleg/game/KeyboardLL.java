@@ -1,4 +1,4 @@
-package com.example.galgeleg;
+package com.example.galgeleg.game;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,30 +6,31 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
-import com.example.galgeleg.activity.Game;
+import com.example.galgeleg.R;
+import com.example.galgeleg.game.GameActivity;
 
 import java.util.HashMap;
 
-public class Keyboard extends LinearLayout {
+public class KeyboardLL extends LinearLayout {
     private SparseArray<String> btnToLetter;
     private HashMap<String, Integer> letterToBtn;
 
-    public Keyboard(Context context){
+    public KeyboardLL(Context context){
         super(context);
     }
 
-    public Keyboard(Context context, AttributeSet attrs) {
+    public KeyboardLL(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public Keyboard(Context context, AttributeSet attrs, int defStyleAttr) {
+    public KeyboardLL(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initBtns(context);
     }
 
     private void initBtns(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.keyboard, this, true);
-        Game game = (Game) super.getContext();
+        LayoutInflater.from(context).inflate(R.layout.keyboard_layout, this, true);
+        GameActivity game = (GameActivity) super.getContext();
 
         int btnID;
         btnToLetter = new SparseArray<>();

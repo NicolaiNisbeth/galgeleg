@@ -1,4 +1,4 @@
-package com.example.galgeleg.activity;
+package com.example.galgeleg.player_setup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,34 +9,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.galgeleg.Logic;
+import com.example.galgeleg.game.GameLogic;
 import com.example.galgeleg.R;
-import com.example.galgeleg.adapter.PlayerSetupAdapter;
-import com.example.galgeleg.fragment.Guesser;
-import com.example.galgeleg.fragment.Selector;
+import com.example.galgeleg.game.GameActivity;
 import com.example.galgeleg.util.PreferenceUtil;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Arrays;
 
-public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragmentInteractionListener, Selector.OnFragmentInteractionListener, View.OnClickListener {
-    public static final MutableLiveData<Logic> liveData = new MutableLiveData<>();
+public class PlayerSetupActivity extends AppCompatActivity implements GuesserFragment.OnFragmentInteractionListener, SelectorFragment.OnFragmentInteractionListener, View.OnClickListener {
+    public static final MutableLiveData<GameLogic> liveData = new MutableLiveData<>();
     private String tab1Title, tab2Title, username, selectedWord;
     private Button playBtn;
-    private Logic logic;
+    private GameLogic gameLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.playerselection_activity);
+        setContentView(R.layout.activity_player_setup);
 
         tab1Title = getString(R.string.guesser_tab1);
         tab2Title = getString(R.string.selector_tab2);
 
         playBtn = findViewById(R.id.playBtn);
 
-        liveData.setValue(Logic.getInstance());
-        logic = PlayerSetup.liveData.getValue();
+        liveData.setValue(GameLogic.getInstance());
+        gameLogic = PlayerSetupActivity.liveData.getValue();
         applyWordCache();
 
         TabLayout tabLayout = findViewById(R.id.tablayout);
@@ -45,7 +43,7 @@ public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragment
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = findViewById(R.id.pager);
-        viewPager.setAdapter(new PlayerSetupAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
+        viewPager.setAdapter(new PlayerSetupPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -66,7 +64,7 @@ public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragment
     public void onClick(View v) {
         if (v == playBtn){
             finish();
-            Intent i = new Intent(this, Game.class);
+            Intent i = new Intent(this, GameActivity.class);
             i.putExtra(getString(R.string.username), username);
             i.putExtra(getString(R.string.selectedWord), selectedWord);
             startActivity(i);
@@ -101,9 +99,9 @@ public class PlayerSetup extends AppCompatActivity implements Guesser.OnFragment
         System.out.println("CACHE: " + Arrays.toString(words));
 
         if (!data.equals(getString(R.string.default_no_words_pref))){
-            logic.getWordLibrary().clear();
-            logic.getWordLibrary().addAll(Arrays.asList(words));
-            logic.restart();
+            gameLogic.getWordLibrary().clear();
+            gameLogic.getWordLibrary().addAll(Arrays.asList(words));
+            gameLogic.restart();
         }
     }
 }

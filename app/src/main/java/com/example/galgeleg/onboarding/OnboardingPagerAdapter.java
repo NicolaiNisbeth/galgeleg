@@ -1,10 +1,9 @@
-package com.example.galgeleg.adapter;
+package com.example.galgeleg.onboarding;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,7 @@ import com.example.galgeleg.R;
  * https://www.sundanesepeople.com/creating-onboarding-screen-android-studio/
  */
 
-public class SliderAdapter extends PagerAdapter {
+public class OnboardingPagerAdapter extends PagerAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
 
@@ -39,7 +38,7 @@ public class SliderAdapter extends PagerAdapter {
             "I challenge you to prove yourself and be placed on our all time high score"
     };
 
-    public SliderAdapter(Context context){
+    public OnboardingPagerAdapter(Context context){
         this.context = context;
     }
 
@@ -60,7 +59,7 @@ public class SliderAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         assert layoutInflater != null;
-        View view = layoutInflater.inflate(R.layout.slide_layout, container, false);
+        View view = layoutInflater.inflate(R.layout.onboarding_slide_layout, container, false);
 
         ImageView slideImageView = view.findViewById(R.id.slide_image);
         TextView slideHeading = view.findViewById(R.id.slide_heading);

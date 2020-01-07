@@ -1,4 +1,4 @@
-package com.example.galgeleg.fragment;
+package com.example.galgeleg.player_setup;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -17,16 +17,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.galgeleg.Logic;
+import com.example.galgeleg.game.GameLogic;
 import com.example.galgeleg.R;
-import com.example.galgeleg.activity.PlayerSetup;
 import com.example.galgeleg.util.PreferenceUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.net.URL;
 import java.util.Set;
 
-public class Selector extends Fragment implements View.OnClickListener {
+public class SelectorFragment extends Fragment implements View.OnClickListener {
     private ListElemAdapter elemAdapter = new ListElemAdapter();
     private FloatingActionButton floatingActionButton;
     private OnFragmentInteractionListener listener;
@@ -34,11 +33,11 @@ public class Selector extends Fragment implements View.OnClickListener {
     private int selectedPosition = 0;
     private ProgressBar progressBar;
     private String[] words;
-    private Logic logic;
+    private GameLogic gameLogic;
 
-    public Selector() { }
-    public static Selector newInstance() {
-        return new Selector();
+    public SelectorFragment() { }
+    public static SelectorFragment newInstance() {
+        return new SelectorFragment();
     }
 
     @Override
@@ -59,16 +58,16 @@ public class Selector extends Fragment implements View.OnClickListener {
 
         progressBar = v.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
-        logic = PlayerSetup.liveData.getValue();
+        gameLogic = PlayerSetupActivity.liveData.getValue();
 
 
-        // When reading from wordLibrary in Logic, the order of words differ from the order in cache
+        // When reading from wordLibrary in GameLogic, the order of words differ from the order in cache
         // therefore to maintain the same order I have to read from Preferences.
         String data = PreferenceUtil.readSharedSetting(getContext(), getString(R.string.words_pref), getString(R.string.default_no_words_pref));
         words = data.replaceAll("\\W+"," ").trim().split(" ");
 
         if (data.equals(getString(R.string.default_no_words_pref)))
-            words = logic.getWordLibrary().toArray(new String[0]);
+            words = gameLogic.getWordLibrary().toArray(new String[0]);
 
         return v;
     }
@@ -97,11 +96,11 @@ public class Selector extends Fragment implements View.OnClickListener {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    class ListElemAdapter extends RecyclerView.Adapter<Selector.ListElemViewHolder> {
+    class ListElemAdapter extends RecyclerView.Adapter<SelectorFragment.ListElemViewHolder> {
         @NonNull
         @Override
         public ListElemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View listElementViews = getLayoutInflater().inflate(R.layout.list_words, parent, false);
+            View listElementViews = getLayoutInflater().inflate(R.layout.row_words, parent, false);
             return new ListElemViewHolder(listElementViews);
         }
 
@@ -145,15 +144,15 @@ public class Selector extends Fragment implements View.OnClickListener {
             Set<String> wordsFromDR = null;
 
             try {
-                wordsFromDR = logic.hentOrdFraDr();
-                logic.getWordLibrary().clear();
-                logic.getWordLibrary().addAll(wordsFromDR);
+                wordsFromDR = gameLogic.hentOrdFraDr();
+                gameLogic.getWordLibrary().clear();
+                gameLogic.getWordLibrary().addAll(wordsFromDR);
                 PreferenceUtil.saveSharedSetting(getContext(), getString(R.string.words_pref), String.valueOf(wordsFromDR));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            PlayerSetup.liveData.postValue(logic);
+            PlayerSetupActivity.liveData.postValue(gameLogic);
             return wordsFromDR;
         }
 
@@ -162,7 +161,7 @@ public class Selector extends Fragment implements View.OnClickListener {
             System.out.println("Downloaded: " + words);
 
             if (words != null){
-                Selector.this.words = words.toArray(new String[0]);
+                SelectorFragment.this.words = words.toArray(new String[0]);
                 elemAdapter.notifyDataSetChanged();
                 Toast.makeText(getContext(), R.string.download_succesful_msg, Toast.LENGTH_SHORT).show();
             }

@@ -1,17 +1,14 @@
-package com.example.galgeleg.adapter;
+package com.example.galgeleg.player_setup;
 
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.galgeleg.fragment.Guesser;
-import com.example.galgeleg.fragment.Selector;
-
-public class PlayerSetupAdapter extends FragmentStatePagerAdapter {
+public class PlayerSetupPagerAdapter extends FragmentStatePagerAdapter {
     private int numOfTabs;
 
-    public PlayerSetupAdapter(FragmentManager fm, int NumberOfTabs) {
+    public PlayerSetupPagerAdapter(FragmentManager fm, int NumberOfTabs) {
         super(fm);
         this.numOfTabs = NumberOfTabs;
     }
@@ -20,9 +17,9 @@ public class PlayerSetupAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch(position) {
             case 0:
-                return Guesser.newInstance();
+                return GuesserFragment.newInstance();
             case 1:
-                return Selector.newInstance();
+                return SelectorFragment.newInstance();
             default:
                 return null;
         }

@@ -1,4 +1,4 @@
-package com.example.galgeleg;
+package com.example.galgeleg.player_setup;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -11,9 +11,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 /**
  * https://guides.codepath.com/android/floating-action-buttons
  */
-public class ScrollAwareFabBehaviour extends FloatingActionButton.Behavior {
+public class SelectorFabBehaviour extends FloatingActionButton.Behavior {
 
-    public ScrollAwareFabBehaviour(Context context, AttributeSet attrs) {
+    public SelectorFabBehaviour(Context context, AttributeSet attrs) {
         super();
     }
 

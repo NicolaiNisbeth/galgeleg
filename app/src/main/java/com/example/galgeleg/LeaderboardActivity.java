@@ -1,4 +1,4 @@
-package com.example.galgeleg.activity;
+package com.example.galgeleg;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.galgeleg.R;
 import com.example.galgeleg.util.PreferenceUtil;
 
-public class Leaderboard extends AppCompatActivity {
+public class LeaderboardActivity extends AppCompatActivity {
     private ListElemAdapter elemAdapter = new ListElemAdapter();
     private RecyclerView recyclerView;
     private String[] names, scores;
@@ -21,7 +21,7 @@ public class Leaderboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.leaderboard_activity);
+        setContentView(R.layout.activity_leaderboard);
 
         names = PreferenceUtil.readSharedSetting(getBaseContext(), getString(R.string.names_pref), getString(R.string.default_no_names_pref))
                 .replaceAll("\\W+"," ")
@@ -42,7 +42,7 @@ public class Leaderboard extends AppCompatActivity {
         @NonNull
         @Override
         public ListElemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View listElementViews = getLayoutInflater().inflate(R.layout.list_scores, parent, false);
+            View listElementViews = getLayoutInflater().inflate(R.layout.row_scores, parent, false);
             return new ListElemViewHolder(listElementViews);
         }
 
